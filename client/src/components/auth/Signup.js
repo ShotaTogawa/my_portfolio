@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
 import md5 from 'md5';
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
 
@@ -165,6 +166,7 @@ class Signup extends Component {
                         {this.state.errors.length > 0 && (this.displayErrors(this.state.errors))}
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
+                    <small className="form-text text-muted" style={{marginTop: "10px"}}>If you have an account, please <Link to="/login">login here</Link></small>
                     </div>
                     <div className="col-sm"></div>
                 </div>

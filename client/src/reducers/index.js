@@ -1,4 +1,4 @@
-import cobineReducer, { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import * as actionTypes from '../actions/type';
 import { isNull } from 'util';
 

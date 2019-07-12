@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../../firebase';
 import md5 from 'md5';
 import { Link } from 'react-router-dom';
+import api from '../../api';
 
 class Signup extends Component {
 
@@ -91,13 +92,14 @@ class Signup extends Component {
       * @param event
       */
 
-     handleSubmit = (event) => {
+     handleSubmit = async (event) => {
         event.preventDefault();
+        const { name, email, password } = this.state;
         if(this.isFormValid()){
             this.setState({errors:[], loading: true});
-            firebase
+            await firebase
             .auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .createUserWithEmailAndPassword(email, password)
             .then(createdUser => {
                 createdUser.user
                     .updateProfile({
@@ -111,8 +113,19 @@ class Signup extends Component {
                     errors: this.state.errors.concat(err),
                 });
             })
+
+            await api.post('/user', {
+                    name: name,
+                    email: email,
+                    password: password
+                }).then(response =>{
+                    console.log(response);
+                }) .catch(err => {
+                    console.log(err);
+                })
         }
     };
+
 
     render() {
         console.log(this.state.errors)

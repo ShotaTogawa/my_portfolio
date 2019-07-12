@@ -14,23 +14,23 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         validate(value) {
             if(!validator.isEmail(value)){
-                throw new Error('Email is invalid');
+                throw new Error('Email is invalid')
             }
         }
     },
     password: {
         type: String,
         trim: true,
-        validate(value) {
-            if(value >= 6) {
-                throw new Error('Password must be 6 letters');
-            }
-        }
-    }
+        // validate(value) {
+        //     console.log(value)
+        //     if(value >= 6) {
+        //         throw new Error('Password must be greater than 6')
+        //     }
+        // }
     },
-    {
-        timestamps: true
-    }
-);
+},{
+    timestamps: true
+});
 
+const User = mongoose.model('User', userSchema);
 module.exports = User;

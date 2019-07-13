@@ -107,6 +107,7 @@ class Signup extends Component {
                         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
                     })
             })
+            .then(user => console.log(user))
             .catch(err => {
                 console.error(err);
                 this.setState({
@@ -114,21 +115,21 @@ class Signup extends Component {
                 });
             })
 
-            await api.post('/user', {
-                    name: name,
-                    email: email,
-                    password: password
-                }).then(response =>{
-                    console.log(response);
-                }) .catch(err => {
-                    console.log(err);
-                })
+            await api
+            .post('/user', {
+                name: name,
+                email: email,
+                password: password
+            })
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
         }
     };
 
 
     render() {
-        console.log(this.state.errors)
+        const response = api.get('https://jsonplaceholder.typicode.com/posts');
+        console.log(response);
         return (
             <div className="container" style={{ marginTop: "100px" }}>
                 <div className="row align-items-center">

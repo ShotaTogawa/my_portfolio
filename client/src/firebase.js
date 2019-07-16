@@ -7,7 +7,7 @@ var firebaseConfig = {
     authDomain: "my-portfolio-e7b33.firebaseapp.com",
     databaseURL: "https://my-portfolio-e7b33.firebaseio.com",
     projectId: "my-portfolio-e7b33",
-    storageBucket: "",
+    storageBucket: "my-portfolio-e7b33.appspot.com",
     messagingSenderId: "971385423281",
     appId: "1:971385423281:web:00f0309bec75a09e"
 };
@@ -15,3 +15,4 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export default firebase;
+

@@ -1,5 +1,6 @@
-const mongoose = require("mongodb");
-const validator = require('validator');
+const mongoose = require("mongoose");
+
+const today = new Date();
 
 const bookSchema = new mongoose.Schema({
     title: {
@@ -10,22 +11,26 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
+    imageUrl: {
         type: String
     },
-    page_num: {
+    page_nums: {
         type: Number
     },
     ScheduledStartDate: {
-        type: Date
-    },
-    ScheduledEndDate: {
         type: Date,
         validate(value) {
-            if(ScheduledStartDate >= value) {
-                throw new Error('Scheduled end date must be greater than Scheduled Start Date')
+            if (today <= value) {
+                throw new Error('Scheduled start date must be greater than equal today')
             }
         }
+    },
+    ScheduledEndDate: {
+        type: Date
+    },
+    owner: {
+        type: String,
+        required: true
     }
 },{
     timestamps: true

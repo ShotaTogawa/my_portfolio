@@ -5,18 +5,20 @@ import mime from 'mime-types';
 import uuidv4 from 'uuidv4';
 
 class BookRegister extends Component {
-
+    
     state = {
         title: "",
         genre: "",
         page_nums: "",
         file: null,
-        expected_finish_date: "",
+        ScheduledEndDate: "",
+        ScheduledStartDate: "",
         storageRef: firebase.storage().ref(),
         authorized: ["image/jpeg", "image/png", "image/jpg"],
         uploadTask: null,
         errors: [],
-        imageUrl: ''
+        imageUrl: '',
+        openCalendar: false
     }
 
     /**
@@ -94,12 +96,28 @@ class BookRegister extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        // タイトルとジャンル(デフォルトは選べない)はマスト
+        // 開始予定日は今日日付より後
+        // 終了予定日は開始日より後
+        // フォーム送信
         this.sendFile();
         console.log(this.state);
     }
 
-    onChange = (expected_finish_date) => {
-        this.setState({expected_finish_date});
+    openCalendar = () => {
+        this.setState({openCalendar: true})
+    }
+
+    closeCalendar = () => {
+        this.setState({openCalendar: false})
+    }
+
+    setScheduledStartDate = (ScheduledStartDate) => {
+        this.setState({ScheduledStartDate});
+    }
+
+    setScheduledEndDate = (ScheduledEndDate) => {
+        this.setState({ScheduledEndDate});
     }
 
     render() {
@@ -108,7 +126,7 @@ class BookRegister extends Component {
                 <div className="row align-items-center">
                     <div className="col-sm"></div>
                     <div className="col-sm align-self-center">
-                    <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Signup</h1>
+                    <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Book Register</h1>
                     <form onSubmit={this.handleSubmit}>
                         {/* title */}
                         <div className="form-group">
@@ -123,6 +141,7 @@ class BookRegister extends Component {
                         </div>
                         {/* genre */}
                         <div class="form-group">
+                            <label htmlFor="genre">Genre</label>
                             <select class="form-control" value={this.state.value} name="genre" onChange={this.handleChange}>
                                 <option>Default select</option>
                                 <option value="1">文学・評論</option>
@@ -155,13 +174,34 @@ class BookRegister extends Component {
                                 onChange={this.handleChange}
                             />
                         </div>
+                        {/* 開始予定日 */}
+                        <div className="form-group">
+                            <label>Expected day to start to read the books</label>
+                            {this.state.openCalendar ?
+                            <div>
+                                <Calendar
+                                    onChange={this.setScheduledStartDate}
+                                    value={this.state.ScheduledStartDate}
+                                />
+                            </div>
+                            :
+                            <button onClick={this.openCalendar} className="btn btn-outline-secondary btn-sm">Open calendar</button>
+                            }
+                        </div>
                         {/* 読了予定日 */}
                         <div className="form-group">
-                            <label>Expected day to fishih to read the books</label>
-                            <Calendar
-                                onChange={this.onChange}
-                                value={this.state.expected_finish_date}
-                            />
+                            {this.state.openCalendar ?
+                            <div>
+                                <label>Expected day to fishih to read the books</label>
+                                <Calendar
+                                    onChange={this.setScheduledEndDate}
+                                    value={this.state.ScheduledEndDate}
+                                />
+                                <br />
+                                <button onClick={this.closeCalendar} className="btn btn-outline-secondary btn-sm">Close calendar</button>
+                            </div>
+                            : ''
+                            }
                         </div>
                         {/* {this.state.errors.length > 0 && (this.displayErrors(this.state.errors))} */}
                         <button type="submit" className="btn btn-primary">Submit</button>

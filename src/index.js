@@ -4,6 +4,7 @@ const cors = require('cors');
 require('./db/mongoose');
 
 const userRouter = require('./router/user');
+const bookRouter = require('./router/book');
 
 const app = express();
 const port = config.get('PORT');
@@ -11,6 +12,7 @@ const port = config.get('PORT');
 app.use(express.json());
 app.use(cors());
 app.use(userRouter);
+app.use(bookRouter);
 
 app.listen(port, () => {
     console.log(`Listening ${port}`);

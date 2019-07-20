@@ -1,4 +1,5 @@
 import * as actionTypes from './type';
+import api from '../api';
 
 /* User Auth */
 export const setUser = user => {
@@ -15,3 +16,9 @@ export const clearUser = () => {
         type: actionTypes.CLEAR_USER
     };
 };
+
+// export const createBook = formValues = await (dispatch, user) => {
+//     console.log(user);
+//     const userId = user
+//     dispatch({type: actionTypes.CREATE_BOOK, payload: Response.date});
+// }

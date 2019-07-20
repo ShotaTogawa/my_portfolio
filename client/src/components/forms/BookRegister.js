@@ -17,8 +17,9 @@ class BookRegister extends Component {
         authorized: ["image/jpeg", "image/png", "image/jpg"],
         uploadTask: null,
         errors: [],
-        imageUrl: '',
-        openCalendar: false
+        imageUrl: "",
+        openCalendar: false,
+        user: this.props.currentUser
     }
 
     /**
@@ -45,29 +46,59 @@ class BookRegister extends Component {
 
     uploadFile = (file, metadata) => {
         const path = `books/images/${uuidv4()}.jpg`;
-        this.setState(
-            {
-                uploadTask: this.state.storageRef.child(path).put(file,metadata)
-            }
-            ,() => {
-                this.state.uploadTask.on("state_changed")
-            },
-             () => {
-                this.state.uploadTask.snapshot.ref
-                .getDownloadURL()
-                .then(downloadUrl => {
-                    console.log("donwloadurl " + downloadUrl)
-                    this.setState({imageUrl: downloadUrl})
-                })
-                .catch(err => {
-                    console.error(err);
-                    this.setState({
-                        errors: this.state.errors.concat(err),
-                        uploadTask: null
-                    });
-                });
+        this.setState({uploadTask: this.state.storageRef.child(path).put(file,metadata)}
+                ,() => { this.state.uploadTask.on(
+                    "state_changed",
+                    snap => {
+                    },
+                    err => {
+                        console.log(err)
+                    },
+                    () => {
+                        this.state.uploadTask.snapshot.ref
+                        .getDownloadURL()
+                        .then(downloadUrl => {
+                            this.setState({imageUrl: downloadUrl})
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            this.setState({
+                                errors: this.state.errors.concat(err),
+                                uploadTask: null
+                            });
+                        });
+                    }
+                )
             }
         )
+    }
+
+    isFormEmpty = ({title, genre}) => {
+        return(
+        !title.length ||
+        !genre.length
+        );
+     }
+
+     isFormValid = () => {
+        let errors = [];
+        let error;
+        const today = new Date();
+        if (this.isFormEmpty(this.state)) {
+            error = { message: "Please fill in title and genre Fields"};
+            this.setState({ errors: errors.concat(error) });
+            return false;
+        } else if (!today <= this.state.ScheduledStartDate ) {
+            error = { message: "Scheduled start date must be greater equal than today"};
+            this.setState({ errors: errors.concat(error)});
+            return false;
+        } else if (this.state.ScheduledEndDate < this.state.ScheduledStartDate ){
+            error = { message: "Scheduled end date must be greater equal than Scheduled start date"};
+            this.setState({ errors: errors.concat(error)});
+            return false;
+        } else {
+            return true;
+        }
     }
 
     
@@ -94,22 +125,15 @@ class BookRegister extends Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        // タイトルとジャンル(デフォルトは選べない)はマスト
-        // 開始予定日は今日日付より後
-        // 終了予定日は開始日より後
-        // フォーム送信
-        this.sendFile();
-        console.log(this.state);
+        await this.isFormValid();
+        await this.sendFile();
+        await console.log(this.state);
     }
 
     openCalendar = () => {
         this.setState({openCalendar: true})
-    }
-
-    closeCalendar = () => {
-        this.setState({openCalendar: false})
     }
 
     setScheduledStartDate = (ScheduledStartDate) => {
@@ -120,11 +144,11 @@ class BookRegister extends Component {
         this.setState({ScheduledEndDate});
     }
 
+
     render() {
         return (
-            <div className="container" style={{ marginTop: "100px" }}>
+            <div className="container">
                 <div className="row align-items-center">
-                    <div className="col-sm"></div>
                     <div className="col-sm align-self-center">
                     <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Book Register</h1>
                     <form onSubmit={this.handleSubmit}>
@@ -176,29 +200,30 @@ class BookRegister extends Component {
                         </div>
                         {/* 開始予定日 */}
                         <div className="form-group">
-                            <label>Expected day to start to read the books</label>
+                            <p>Expected Reading Start and Finised Date</p>
                             {this.state.openCalendar ?
                             <div>
+                                <label>Expected day to start</label>
                                 <Calendar
                                     onChange={this.setScheduledStartDate}
                                     value={this.state.ScheduledStartDate}
                                 />
                             </div>
                             :
-                            <button onClick={this.openCalendar} className="btn btn-outline-secondary btn-sm">Open calendar</button>
+                            <div>
+                                <button onClick={this.openCalendar} className="btn btn-outline-secondary btn-sm">Open calendar</button>
+                            </div>
                             }
                         </div>
                         {/* 読了予定日 */}
                         <div className="form-group">
                             {this.state.openCalendar ?
                             <div>
-                                <label>Expected day to fishih to read the books</label>
+                                <label>Expected day to fishih</label>
                                 <Calendar
                                     onChange={this.setScheduledEndDate}
                                     value={this.state.ScheduledEndDate}
                                 />
-                                <br />
-                                <button onClick={this.closeCalendar} className="btn btn-outline-secondary btn-sm">Close calendar</button>
                             </div>
                             : ''
                             }
@@ -208,7 +233,6 @@ class BookRegister extends Component {
                     </form>
                     {/* <small className="form-text text-muted" style={{marginTop: "10px"}}>If you have an account, please <Link to="/login">login here</Link></small> */}
                     </div>
-                    <div className="col-sm"></div>
                 </div>
             </div>
         );

@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import Navbar from '../src/components/Navbar/Navbar';
-import firebase from './firebase';
-import BookRegister from './components/forms/BookRegister';
+import MyPage from '../src/components/MyPage/MyPage'
+import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
     return (
       <div>
         <Navbar />
-        <BookRegister />
+        <MyPage />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(App);
+
+

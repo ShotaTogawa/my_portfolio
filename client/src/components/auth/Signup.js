@@ -3,6 +3,16 @@ import firebase from '../../firebase';
 import md5 from 'md5';
 import { Link } from 'react-router-dom';
 import api from '../../api';
+import {
+    Grid,
+    Form,
+    Segment,
+    Button,
+    Header,
+    Message,
+    Icon
+} from "semantic-ui-react";
+
 
 class Signup extends Component {
 
@@ -128,63 +138,79 @@ class Signup extends Component {
 
 
     render() {
-        const response = api.get('https://jsonplaceholder.typicode.com/posts');
-        console.log(response);
         return (
-            <div className="container" style={{ marginTop: "100px" }}>
-                <div className="row align-items-center">
-                    <div className="col-sm"></div>
-                    <div className="col-sm align-self-center">
-                    <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Signup</h1>
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="name"
-                                placeholder="Enter your name"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">email</label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                name="email"
-                                placeholder="Enter your email"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="password"
-                                placeholder="Enter your password"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="passwordConfirmation">Confirm your password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="passwordConfirmation"
-                                placeholder="Enter your password"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        {this.state.errors.length > 0 && (this.displayErrors(this.state.errors))}
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
-                    <small className="form-text text-muted" style={{marginTop: "10px"}}>If you have an account, please <Link to="/login">login here</Link></small>
-                    </div>
-                    <div className="col-sm"></div>
-                </div>
-            </div>
+            <Grid textAlign="center" verticalAlign="middle" className="app" style={{marginTop: "30px"}} >
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as="h1" icon color="violet" textAlign="center">
+                <Icon name="puzzle piece" color="violet" />
+                Register
+              </Header>
+              <Form onSubmit={this.handleSubmit} size="large">
+                <Segment stacked>
+                  <Form.Input
+                    fluid
+                    name="name"
+                    icon="user"
+                    iconPosition="left"
+                    placeholder="User name"
+                    onChange={this.handleChange}
+                    value={this.state.name}
+                    type="text"
+                  />
+    
+                  <Form.Input
+                    fluid
+                    name="email"
+                    icon="mail"
+                    iconPosition="left"
+                    placeholder="Email Address"
+                    onChange={this.handleChange}
+                    value={this.state.email}
+                    type="email"
+                  />
+    
+                  <Form.Input
+                    fluid
+                    name="password"
+                    icon="lock"
+                    iconPosition="left"
+                    placeholder="Password"
+                    onChange={this.handleChange}
+                    value={this.state.password}
+                    type="password"
+                  />
+    
+                  <Form.Input
+                    fluid
+                    name="passwordConfirmation"
+                    icon="repeat"
+                    iconPosition="left"
+                    placeholder="Password Confirmation"
+                    onChange={this.handleChange}
+                    value={this.state.passwordConfirmation}
+                    type="password"
+                  />
+    
+                  <Button
+                    color="violet"
+                    fluid
+                    size="large"
+                  >
+                    Submit
+                  </Button>
+                </Segment>
+              </Form>
+              {this.state.errors.length > 0 && (
+                <Message error>
+                  <h3>Error</h3>
+                  {this.displayErrors(this.state.errors)}
+                </Message>
+              )}
+              <Message>
+                Already a user? <Link to="/login">Login</Link>
+              </Message>
+            </Grid.Column>
+          </Grid>
         );
     }
 }

@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 
+import {
+    Grid,
+    Form,
+    Segment,
+    Button,
+    Header,
+    Message,
+    Icon
+} from "semantic-ui-react";
+
+
 class Signup extends Component {
 
     state = {
@@ -65,42 +76,56 @@ class Signup extends Component {
 
     render() {
         return (
-            <div className="container" style={{ marginTop: "100px" }}>
-                <div className="row align-items-center">
-                    <div className="col-sm"></div>
-                    <div className="col-sm align-self-center">
-                    <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Login</h1>
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="email">email</label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                name="email"
-                                placeholder="Enter your email"
-                                onChange={this.handleChange}
-                            />
-                            <small className="form-text text-muted"></small>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="password"
-                                placeholder="Enter your password"
-                                onChange={this.handleChange}
-                            />
-                            <small className="form-text text-muted"></small>
-                        </div>
-                        {this.state.errors.length > 0 && (this.displayErrors(this.state.errors))}
-                        <button type="submit" className="btn btn-primary">Login</button>
-                    </form>
-                    <small className="form-text text-muted" style={{marginTop: "10px"}}>If you don't have an account, please <Link to="/signup">sign up here</Link></small>
-                    </div>
-                    <div className="col-sm"></div>
-                </div>
-            </div>
+            <Grid textAlign="center" verticalAlign="middle" className="app" style={{marginTop: "30px"}}>
+                <Grid.Column style={{ maxWidth: 450 }}>
+                    <Header as="h1" icon color="violet" textAlign="center">
+                        <Icon name="code branch" color="violet" />
+                        Login
+                    </Header>
+                    <Form onSubmit={this.handleSubmit} size="large">
+                        <Segment stacked>
+                        <Form.Input
+                            fluid
+                            name="email"
+                            icon="mail"
+                            iconPosition="left"
+                            placeholder="Email Address"
+                            onChange={this.handleChange}
+                            value={this.state.email}
+                            type="email"
+                        />
+
+                        <Form.Input
+                            fluid
+                            name="password"
+                            icon="lock"
+                            iconPosition="left"
+                            placeholder="Password"
+                            onChange={this.handleChange}
+                            value={this.state.password}
+                            type="password"
+                        />
+
+                        <Button
+                            color="violet"
+                            fluid
+                            size="large"
+                        >
+                            Submit
+                        </Button>
+                        </Segment>
+                    </Form>
+                    {this.state.errors.length > 0 && (
+                        <Message error>
+                        <h3>Error</h3>
+                        {this.displayErrors(this.state.errors)}
+                        </Message>
+                    )}
+                    <Message>
+                        Don't have an account? <Link to="/signup">Singup</Link>
+                    </Message>
+                </Grid.Column>
+      </Grid>
         );
     }
 }

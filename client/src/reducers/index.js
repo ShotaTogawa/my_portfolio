@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
 import * as actionTypes from '../actions/type';
-import { isNull } from 'util';
 
 const initialUser = {
-    currentUser: isNull
+    currentUser: null
 };
 
 const user_reducer = (state = initialUser, action) => {

@@ -1,5 +1,6 @@
 import * as actionTypes from './type';
 import api from '../api';
+import history from '../history';
 
 /* User Auth */
 export const setUser = user => {
@@ -17,8 +18,25 @@ export const clearUser = () => {
     };
 };
 
-// export const createBook = formValues = await (dispatch, user) => {
-//     console.log(user);
-//     const userId = user
-//     dispatch({type: actionTypes.CREATE_BOOK, payload: Response.date});
-// }
+
+export const fetchBook = (id) => async dispatch => {
+    const response = await api.get(`/book/${id}`);
+    dispatch({type: actionTypes.FETCH_BOOK, payload: response.data});
+}
+
+export const fetchBooks = () => async dispatch => {
+    const response = await api.get('/books');
+    dispatch({type: actionTypes.FETCH_BOOKS, payload: response.data});
+}
+
+export const deleteBook = (id) => async dispatch => {
+    await api.delete(`/book/${id}`);
+    dispatch({type: actionTypes.DELETE_BOOK, payload: id});
+    history.push('/');
+}
+
+export const updateBook = (id, formValues) => async dispatch => {
+    const response = api.patch(`/book/${id}`, formValues);
+    dispatch({type: actionTypes.UPDATE_BOOK, payload: response.data});
+    history.push('/');
+}

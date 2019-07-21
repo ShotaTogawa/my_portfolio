@@ -11,6 +11,9 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    author: {
+        type: String,
+    },
     imageUrl: {
         type: String
     },
@@ -19,11 +22,6 @@ const bookSchema = new mongoose.Schema({
     },
     ScheduledStartDate: {
         type: Date,
-        validate(value) {
-            if (today <= value) {
-                throw new Error('Scheduled start date must be greater than equal today')
-            }
-        }
     },
     ScheduledEndDate: {
         type: Date
@@ -31,6 +29,14 @@ const bookSchema = new mongoose.Schema({
     owner: {
         type: String,
         required: true
+    },
+    status: {
+        type: Number,
+        default: 0
+    },
+    evaluation: {
+        type: Number,
+        default: 0
     }
 },{
     timestamps: true

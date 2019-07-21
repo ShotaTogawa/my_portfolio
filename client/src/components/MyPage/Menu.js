@@ -33,9 +33,14 @@ class Menu extends Component {
                     <List.Content>
                         <List.Header>Book</List.Header>
                         <List.List>
+                        <List.Item>
+                            <List.Content>
+                                <List.Header><Link to={""}>Book List</Link></List.Header>
+                            </List.Content>
+                            </List.Item>
                             <List.Item>
                             <List.Content>
-                                <List.Header><Link to={"/book"}>Register</Link></List.Header>
+                                <List.Header><Link to={"/book"} user={this.props.currentUser}>Register</Link></List.Header>
                             </List.Content>
                             </List.Item>
                             <List.Item>

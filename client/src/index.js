@@ -15,14 +15,16 @@ import {
     Route,
     withRouter,
 } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import { setUser, clearUser } from './actions';
 import rootReducer from './reducers';
 import BookDetail from './components/Book/BookDetail';
+import reduxThunk from 'redux-thunk'
 
-const store = createStore(rootReducer, composeWithDevTools());
+const composeEnnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnnhancers(applyMiddleware(reduxThunk)));
 
 class Root extends React.Component {
     componentDidMount() {

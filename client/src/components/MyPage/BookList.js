@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Table from './Table'
+import Table from './Table';
 
 class BookList extends Component {
+
     render() {
         return (
             <div>
@@ -34,5 +35,8 @@ class BookList extends Component {
         );
     }
 }
+
+
+
 
 export default BookList;

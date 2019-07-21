@@ -3,14 +3,18 @@ import Calendar from 'react-calendar';
 import firebase from '../../firebase';
 import mime from 'mime-types';
 import uuidv4 from 'uuidv4';
+import { connect } from 'react-redux';
+import api from '../../api';
+import history from '../../history';
 
 class BookRegister extends Component {
-    
+
     state = {
         title: "",
         genre: "",
         page_nums: "",
         file: null,
+        author: '',
         ScheduledEndDate: "",
         ScheduledStartDate: "",
         storageRef: firebase.storage().ref(),
@@ -19,7 +23,7 @@ class BookRegister extends Component {
         errors: [],
         imageUrl: "",
         openCalendar: false,
-        user: this.props.currentUser
+        owner: this.props.currentUser
     }
 
     /**
@@ -58,7 +62,7 @@ class BookRegister extends Component {
                         this.state.uploadTask.snapshot.ref
                         .getDownloadURL()
                         .then(downloadUrl => {
-                            this.setState({imageUrl: downloadUrl})
+                            this.setImageUrl(downloadUrl);
                         })
                         .catch(err => {
                             console.error(err);
@@ -88,14 +92,18 @@ class BookRegister extends Component {
             error = { message: "Please fill in title and genre Fields"};
             this.setState({ errors: errors.concat(error) });
             return false;
-        } else if (!today <= this.state.ScheduledStartDate ) {
-            error = { message: "Scheduled start date must be greater equal than today"};
-            this.setState({ errors: errors.concat(error)});
-            return false;
-        } else if (this.state.ScheduledEndDate < this.state.ScheduledStartDate ){
-            error = { message: "Scheduled end date must be greater equal than Scheduled start date"};
-            this.setState({ errors: errors.concat(error)});
-            return false;
+        } else if (!this.state.ScheduledStartDate.length) {
+                if (!today <= this.state.ScheduledStartDate ) {
+                error = { message: "Scheduled start date must be greater equal than today"};
+                this.setState({ errors: errors.concat(error)});
+                return false;
+            }
+        } else if (!this.state.ScheduledEndDate.length){
+            if(this.state.ScheduledEndDate < this.state.ScheduledStartDate ){
+                error = { message: "Scheduled end date must be greater equal than Scheduled start date"};
+                this.setState({ errors: errors.concat(error)});
+                return false;
+            }
         } else {
             return true;
         }
@@ -125,15 +133,35 @@ class BookRegister extends Component {
     }
 
 
-    handleSubmit = async (event) => {
+    handleSubmit = async event => {
         event.preventDefault();
-        await this.isFormValid();
-        await this.sendFile();
-        await console.log(this.state);
+        const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate, imageUrl} = this.state;
+
+        //if (this.isFormValid()){
+            await this.sendFile()
+            await api
+            .post('/book', {
+                title,
+                genre,
+                author,
+                page_nums,
+                ScheduledStartDate,
+                ScheduledEndDate,
+                imageUrl,
+                owner: this.props.currentUser.uid
+            })
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
+        //}
+        history.push('/');
     }
 
     openCalendar = () => {
         this.setState({openCalendar: true})
+    }
+
+    setImageUrl = (imageUrl) => {
+        this.setState({imageUrl});
     }
 
     setScheduledStartDate = (ScheduledStartDate) => {
@@ -160,6 +188,16 @@ class BookRegister extends Component {
                                 className="form-control"
                                 name="title"
                                 placeholder="Enter your book title"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="author">author</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="author"
+                                placeholder="Enter an author name of this book"
                                 onChange={this.handleChange}
                             />
                         </div>
@@ -239,4 +277,9 @@ class BookRegister extends Component {
     }
 }
 
-export default BookRegister;
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+})
+
+
+export default connect(mapStateToProps)(BookRegister);

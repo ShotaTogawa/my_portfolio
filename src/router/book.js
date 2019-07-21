@@ -3,11 +3,9 @@ const express = require('express');
 const Book = require('../model/books');
 const router = new express.Router();
 
-router.post('/user/:id/book', async(req, res) => {
-    console.log(req)
+router.post('/book', async(req, res) => {
     const book = new Book({
-        ...req.body,
-        owner: req.params.id
+        ...req.body
     })
 
     try {
@@ -19,9 +17,8 @@ router.post('/user/:id/book', async(req, res) => {
     }
 })
 
-router.get('/user/:id/book/:book_id', async(req, res) => {
+router.get('/book/:book_id', async(req, res) => {
     const _id = req.params.book_id;
-    console.log(req.params.book_id);
     try {
         const book = await Book.findById(_id);
         console.log(book)
@@ -34,7 +31,18 @@ router.get('/user/:id/book/:book_id', async(req, res) => {
     }
 })
 
-router.delete('/user/:id/book/:book_id', async(req, res) => {
+
+
+router.get('/books', async(req, res) => {
+    try {
+        const books = await Book.find();
+        res.send(books);
+    } catch (e) {
+        return res.status(500).send(e);
+    }
+})
+
+router.delete('/book/:book_id', async(req, res) => {
     const _id = req.params.book_id;
 
     try {
@@ -46,7 +54,7 @@ router.delete('/user/:id/book/:book_id', async(req, res) => {
     }
 })
 
-router.patch('/user/:id/book/:book_id', async(req, res) => {
+router.patch('/book/:book_id', async(req, res) => {
     const updates = Object.keys(req.body);
     const allowUpdates = ['title', 'genre', 'imageUrl', 'page_nums', 'ScheduledStartDate', 'ScheduledEndDate'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));

@@ -3,6 +3,7 @@ import BookInfo from './BookInfo';
 import NavBar from '../Navbar/Navbar';
 import Menu from '../MyPage/Menu';
 import Memo from './Memo';
+import MemoForm from './MemoForm';
 
 class BookDetail extends Component {
     render() {
@@ -22,6 +23,7 @@ class BookDetail extends Component {
                             <div className="col-8">
                                 <h2>Memo</h2>
                                 <Memo />
+                                <MemoForm />
                             </div>
                         </div>
                     </div>

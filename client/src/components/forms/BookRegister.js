@@ -48,9 +48,9 @@ class BookRegister extends Component {
         return this.state.authorized.includes(filename);
     }
 
-    uploadFile = (file, metadata) => {
+    uploadFile = async(file, metadata) => {
         const path = `books/images/${uuidv4()}.jpg`;
-        this.setState({uploadTask: this.state.storageRef.child(path).put(file,metadata)}
+        await this.setState({uploadTask: this.state.storageRef.child(path).put(file,metadata)}
                 ,() => { this.state.uploadTask.on(
                     "state_changed",
                     snap => {
@@ -62,7 +62,7 @@ class BookRegister extends Component {
                         this.state.uploadTask.snapshot.ref
                         .getDownloadURL()
                         .then(downloadUrl => {
-                            this.setImageUrl(downloadUrl);
+                            this.setState({imageUrl: downloadUrl});
                         })
                         .catch(err => {
                             console.error(err);
@@ -133,12 +133,12 @@ class BookRegister extends Component {
     }
 
 
-    handleSubmit = async event => {
+    handleSubmit = async(event) => {
         event.preventDefault();
         const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate, imageUrl} = this.state;
 
         //if (this.isFormValid()){
-            await this.sendFile()
+            await this.sendFile();
             await api
             .post('/book', {
                 title,
@@ -161,8 +161,9 @@ class BookRegister extends Component {
     }
 
     setImageUrl = (imageUrl) => {
-        this.setState({imageUrl});
+        return imageUrl;
     }
+
 
     setScheduledStartDate = (ScheduledStartDate) => {
         this.setState({ScheduledStartDate});
@@ -174,6 +175,7 @@ class BookRegister extends Component {
 
 
     render() {
+        console.log(this.state.imageUrl);
         return (
             <div className="container">
                 <div className="row align-items-center">
@@ -202,9 +204,9 @@ class BookRegister extends Component {
                             />
                         </div>
                         {/* genre */}
-                        <div class="form-group">
+                        <div className="form-group">
                             <label htmlFor="genre">Genre</label>
-                            <select class="form-control" value={this.state.value} name="genre" onChange={this.handleChange}>
+                            <select className="form-control" value={this.state.value} name="genre" onChange={this.handleChange}>
                                 <option>Default select</option>
                                 <option value="1">文学・評論</option>
                                 <option value="2">ノンフィクション</option>
@@ -221,7 +223,7 @@ class BookRegister extends Component {
                             </select>
                         </div>
                         {/* image */}
-                        <div class="form-group">
+                        <div className="form-group">
                             <label htmlFor="file">Example file input</label>
                             <input type="file" className="form-control-file" name="file" onChange={this.addFile} />
                         </div>

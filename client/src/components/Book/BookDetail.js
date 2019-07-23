@@ -4,8 +4,15 @@ import NavBar from '../Navbar/Navbar';
 import Menu from '../MyPage/Menu';
 import Memo from './Memo';
 import MemoForm from './MemoForm';
+import { fetchBook } from '../../actions';
+import { connect } from 'react-redux';
 
 class BookDetail extends Component {
+
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        this.props.fetchBook(id)
+    }
     render() {
         return (
             <div>
@@ -18,7 +25,7 @@ class BookDetail extends Component {
                     <div className="col-10">
                         <div className="row">
                             <div className="col-4">
-                                <BookInfo />
+                                <BookInfo book={this.props.book}/>
                             </div>
                             <div className="col-8">
                                 <h2>Memo</h2>
@@ -34,4 +41,12 @@ class BookDetail extends Component {
     }
 }
 
-export default BookDetail;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        book: state.book[ownProps.match.params.id],
+    }
+}
+
+export default connect(mapStateToProps, { fetchBook })(BookDetail);
+
+

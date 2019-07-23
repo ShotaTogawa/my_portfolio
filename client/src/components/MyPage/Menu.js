@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List } from 'semantic-ui-react'
+import { List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 
@@ -43,11 +43,11 @@ class Menu extends Component {
                                 <List.Header><Link to={"/book"} user={this.props.currentUser}>Register</Link></List.Header>
                             </List.Content>
                             </List.Item>
-                            <List.Item>
+                            {/* <List.Item>
                             <List.Content>
                                 <List.Header><Link to={"/book_detail"}>Timeline</Link></List.Header>
                             </List.Content>
-                            </List.Item>
+                            </List.Item> */}
                         </List.List>
                     </List.Content>
                     </List.Item>

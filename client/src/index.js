@@ -47,7 +47,7 @@ class Root extends React.Component {
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/book" component={BookForm} />
-                <Route path="/book_detail" component={BookDetail} />
+                <Route path="/book_detail/:id" component={BookDetail} />
              </Switch>
         )
     }

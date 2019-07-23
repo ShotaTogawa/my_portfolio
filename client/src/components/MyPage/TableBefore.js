@@ -4,11 +4,11 @@ import StarRating from './StarRating';
 import { Link } from 'react-router-dom';
 
 
-class Table extends Component {
+class TableBefore extends Component {
 
   renderList(){
     return this.props.books.map((book, i) => {
-      if (book.status === 0){
+      if (book.status === 1){
         return (
             <tr key={i}>
               <td>{i}</td>
@@ -47,4 +47,4 @@ class Table extends Component {
   }
 }
 
-export default Table;
+export default TableBefore;

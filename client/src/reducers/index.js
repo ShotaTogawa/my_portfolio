@@ -21,12 +21,9 @@ const user_reducer = (state = initialUser, action) => {
     }
 }
 
-const initialBook = {
-    currentBook: null
-};
 
 
-const book_reducer = (state = initialBook, action) => {
+const book_reducer = (state={}, action) => {
     switch (action.type) {
         case actionTypes.CREATE_BOOK:
             return {...state, [action.payload.id]: action.payload};

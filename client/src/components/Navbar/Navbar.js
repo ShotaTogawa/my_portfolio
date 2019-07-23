@@ -37,7 +37,7 @@ class Navbar extends Component {
                         </div>
                     </li>
                     </ul>
-                    <button class="btn btn-outline-success my-2 my-sm-0 fixed-right" onClick={this.handleSignOut}>Logout</button>
+                    <button className="btn btn-outline-success my-2 my-sm-0 fixed-right" onClick={this.handleSignOut}>Logout</button>
                 </div>
             </nav>
         );

@@ -7,42 +7,47 @@ import { fetchBooks } from '../../actions';
 
 
 class BookList extends Component {
-
-    state = {
-        status: this.props.books.status
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: this.props.currentUser.uid
+        }
     }
 
+
     componentDidMount() {
-        this.props.fetchBooks();
-      }
+        const id = this.props.currentUser.uid;
+        this.props.fetchBooks(id);
+    }
 
     render() {
         const books = this.props.books;
+        const user = this.props.currentUser.uid;
         return (
             <div>
                 {/* <!-- タブボタン部分 --> */}
                 <ul className="nav nav-tabs">
                     <li className="nav-item">
-                    <a href="#tab1" className="nav-link active" data-toggle="tab">読書中</a>
+                    <a href="#tab1" className="nav-link active" data-toggle="tab">Reading</a>
                     </li>
                     <li className="nav-item">
-                    <a href="#tab2" className="nav-link" data-toggle="tab">開始前</a>
+                    <a href="#tab2" className="nav-link" data-toggle="tab">Before Reding</a>
                     </li>
                     <li className="nav-item">
-                    <a href="#tab3" className="nav-link" data-toggle="tab">読了</a>
+                    <a href="#tab3" className="nav-link" data-toggle="tab">Read</a>
                     </li>
                 </ul>
 
                 {/* <!--タブのコンテンツ部分--> */}
                 <div className="tab-content">
                     <div id="tab1" className="tab-pane active">
-                        <Table books={books}/>
+                        <Table books={books} user={user} />
                     </div>
                     <div id="tab2" className="tab-pane">
-                        <TableBefore books={books}/>
+                        <TableBefore books={books} user={user} />
                     </div>
                     <div id="tab3" className="tab-pane">
-                        <TableDone books={books}/>
+                        <TableDone books={books} user={user} />
                     </div>
                 </div>
             </div>
@@ -50,7 +55,7 @@ class BookList extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
     books: Object.values(state.book)
   })

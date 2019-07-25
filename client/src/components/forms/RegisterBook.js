@@ -44,7 +44,6 @@ class RegisterBook extends Component {
      * @params filename
      */
     isAuthorized = filename => {
-        console.log(filename + ' from sendfile')
         return this.state.authorized.includes(filename);
     }
 
@@ -109,7 +108,6 @@ class RegisterBook extends Component {
         }
     }
 
-    
     clearFile = () => this.setState({file: null});
 
     sendFile = () => {
@@ -207,19 +205,21 @@ class RegisterBook extends Component {
                         <div className="form-group">
                             <label htmlFor="genre">Genre</label>
                             <select className="form-control" value={this.state.value} name="genre" onChange={this.handleChange}>
-                                <option>Default select</option>
-                                <option value="1">文学・評論</option>
-                                <option value="2">ノンフィクション</option>
-                                <option value="3">ビジネス・経済</option>
-                                <option value="4">歴史・地理</option>
-                                <option value="5">政治・社会</option>
-                                <option value="6">アート・建築・デザイン</option>
-                                <option value="7">人文・思想・宗教</option>
-                                <option value="8">暮らし・健康・料理</option>
-                                <option value="9">サイエンス・テクノロジー</option>
-                                <option value="10">趣味・実用</option>
-                                <option value="11">教育・自己啓発</option>
-                                <option value="12">その他</option>
+                                <option>Select Genre</option>
+                                <option value="Arts">Arts</option>
+                                <option value="Biographies">Biographies</option>
+                                <option value="Business">Business</option>
+                                <option value="Computer Technology">Computers Technology</option>
+                                <option value="Fitness">Fitness</option>
+                                <option value="Health">Health</option>
+                                <option value="Literature">Literature</option>
+                                <option value="Novel">Novel</option>
+                                <option value="Politics">Politics</option>
+                                <option value="Religion">Religion</option>
+                                <option value="Science">Science</option>
+                                <option value="Self-Help">Self-Help</option>
+                                <option value="Social Science">Social Science</option>
+                                <option value="Others">Others</option>
                             </select>
                         </div>
                         {/* image */}
@@ -246,7 +246,6 @@ class RegisterBook extends Component {
                                 <label>Expected day to start</label>
                                 <Calendar
                                     onChange={this.setScheduledStartDate}
-                                    value={this.state.ScheduledStartDate}
                                 />
                             </div>
                             :
@@ -262,7 +261,6 @@ class RegisterBook extends Component {
                                 <label>Expected day to fishih</label>
                                 <Calendar
                                     onChange={this.setScheduledEndDate}
-                                    value={this.state.ScheduledEndDate}
                                 />
                             </div>
                             : ''

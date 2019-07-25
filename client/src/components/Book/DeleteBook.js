@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect} from 'react-redux';
 import { Link } from 'react-router-dom'
-import history from '../../history';
 import { fetchBook, deleteBook } from '../../actions';
 import { Header, Modal, Button } from 'semantic-ui-react'
 
@@ -16,12 +15,16 @@ class DeleteBook extends Component {
         const { id } = this.props.match.params;
         return(
             <React.Fragment>
-                <Button 
-                    color='red' 
-                    onClick={ ()=> {
-                        this.props.deleteBook(id)
-                        history.push('/');
-                        }}>Delete</Button>
+                <Link to="/">
+                    <Button 
+                        color='red' 
+                        onClick={ ()=> {
+                            this.props.deleteBook(id)
+                        }}
+                    >
+                        Delete
+                    </Button>
+                </Link>
                 <Link to="/" className="ui button">Cancel</Link>
             </React.Fragment>
         )
@@ -31,11 +34,11 @@ class DeleteBook extends Component {
         if(!this.props.book) {
             return "Are you sure you want to delete a Book?"
         }
-
         return `Are you sure you want to delete a book with title: ${this.props.book.title}`
     }
 
     render() {
+        console.log(this.props)
         return (
             <Modal
                 defaultOpen basic size='fullscreen'>

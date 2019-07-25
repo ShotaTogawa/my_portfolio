@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-
-const today = new Date();
+const Memo = require('./memo');
 
 const bookSchema = new mongoose.Schema({
     title: {
@@ -26,6 +25,12 @@ const bookSchema = new mongoose.Schema({
     ScheduledEndDate: {
         type: Date
     },
+    StartDate: {
+        type: Date,
+    },
+    EndDate: {
+        type: Date
+    },
     owner: {
         type: String,
         required: true
@@ -42,6 +47,17 @@ const bookSchema = new mongoose.Schema({
     timestamps: true
 })
 
+bookSchema.virtual('Memo', {
+    ref: 'Memo',
+    localField: '_id',
+    foreignField: 'book_id'
+})
+
+bookSchema.pre('remove', async function(next) {
+    const book = this
+    await Memo.deleteMany({ owner: book._id})
+    next()
+})
 
 const Book = mongoose.model('Book', bookSchema);
 module.exports = Book;

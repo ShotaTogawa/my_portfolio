@@ -27,7 +27,10 @@ class BookInfo extends Component {
     render() {
         return (
             <Item>
-            <Image src={this.props.book.imageUrl} size='small' />
+                {this.props.book.imageUrl
+                ? <Image src={this.props.book.imageUrl} size='small' />
+                : <Image src={'https://firebasestorage.googleapis.com/v0/b/my-portfolio-e7b33.appspot.com/o/books%2Fimages%2Fdefault%2Fimage.png?alt=media&token=76580ae4-2f31-45ac-96bc-bd141697e049'} size='small' />
+                }
                 <Divider hidden />
                 <List>
                     <List.Item>

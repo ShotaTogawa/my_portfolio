@@ -25,7 +25,7 @@ export const fetchBook = (id) => async dispatch => {
 }
 
 export const fetchBooks = () => async dispatch => {
-    const response = await api.get('/books');
+    const response = await api.get(`/books`);
     dispatch({type: actionTypes.FETCH_BOOKS, payload: response.data});
 }
 
@@ -46,4 +46,5 @@ export const updateBook = (id, formValues) => async dispatch => {
 export const fetchMemo = (id) => async dispatch => {
     const response = await api.get(`/book/${id}/memo`);
     dispatch({type: actionTypes.FETCH_BOOK_MEMOS, payload: response.data});
+    history.push('/')
 }

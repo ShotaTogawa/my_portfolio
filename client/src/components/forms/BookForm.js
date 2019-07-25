@@ -7,7 +7,7 @@ const BookForm = () => {
     return (
         <div>
         <NavBar />
-        <div className="container" style={{ marginTop: "60px" }}>
+        <div className="container-fluid" style={{ marginTop: "60px", marginBottom: "60px" }}>
             <div className="row">
                 <div className="col-2">
                     <Menu />

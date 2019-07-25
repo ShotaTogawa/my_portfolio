@@ -25,13 +25,12 @@ class MemoForm extends Component {
                 .catch(err => console.log(err))
             }
     }
-    
 
     render() {
         return (
             <Form reply onSubmit={this.handleSubmit}>
                 <Form.TextArea onChange={this.handleChange} />
-                <Button content='Add Comment' labelPosition='left' icon='edit' primary style={{marginBottom: "50px"}}/>
+                <Button content='Add Memo' labelPosition='left' icon='edit' primary style={{marginBottom: "50px"}}/>
             </Form>
         );
     }

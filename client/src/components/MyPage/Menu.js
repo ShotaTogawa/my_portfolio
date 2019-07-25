@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class Menu extends Component {
 
     render() {
-        
         return (
             <div>
                 <List>
@@ -17,12 +16,7 @@ class Menu extends Component {
                         <List.List>
                             <List.Item>
                             <List.Content>
-                                <List.Header>default</List.Header>
-                            </List.Content>
-                            </List.Item>
-                            <List.Item>
-                            <List.Content>
-                                <List.Header>my_theme</List.Header>
+                                <List.Header>Profile</List.Header>
                             </List.Content>
                             </List.Item>
                         </List.List>

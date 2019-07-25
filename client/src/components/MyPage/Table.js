@@ -8,7 +8,7 @@ class Table extends Component {
 
   renderList(){
     return this.props.books.map((book, i) => {
-      if (book.status === 0){
+      if (book.status === 1){
         return (
             <tr key={i}>
               <td>{i}</td>
@@ -25,6 +25,7 @@ class Table extends Component {
     })
   }
   render() {
+    console.log(this.props.books)
     return (
           <table className="table">
           <thead>
@@ -33,7 +34,7 @@ class Table extends Component {
               <th scope="col">Title</th>
               <th scope="col">Genre</th>
               <th scope="col">Author</th>
-              <th scope="col">Pages</th>
+              <th scope="col">Progress</th>
               <th scope="col">Registered Date</th>
               <th scope="col">Scheduled End Date</th>
               <th scope="col">Evaluation</th>

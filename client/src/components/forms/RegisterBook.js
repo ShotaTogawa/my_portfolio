@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import api from '../../api';
 import history from '../../history';
 
-class BookRegister extends Component {
+class RegisterBook extends Component {
 
     state = {
         title: "",
@@ -284,4 +284,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps)(BookRegister);
+export default connect(mapStateToProps)(RegisterBook);

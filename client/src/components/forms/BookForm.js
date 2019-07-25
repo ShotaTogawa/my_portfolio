@@ -1,6 +1,6 @@
 import React from 'react';
 import Menu from '../MyPage/Menu';
-import BookRegister from './BookRegister';
+import RegisterBook from './RegisterBook';
 import NavBar from '../Navbar/Navbar'
 
 const BookForm = () => {
@@ -13,7 +13,7 @@ const BookForm = () => {
                     <Menu />
                 </div>
                 <div className="col-10">
-                    <BookRegister />
+                    <RegisterBook />
                 </div>
             </div>
         </div>

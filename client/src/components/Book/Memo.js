@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
-import MemoForm from './MemoForm';
 import { Comment } from 'semantic-ui-react';
+import moment from 'moment';
+
 
 
 class Memo extends Component {
+
+    renderList(){
+        return this.props.memos.map((memo, i) => {
+            return (
+                <Comment key={i}>
+                    <Comment.Content>
+                        <Comment.Text>
+                        <p>{memo.memo}</p>
+                        </Comment.Text>
+                        <Comment.Metadata>
+                        <div>{moment(memo.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                        </Comment.Metadata>
+                    </Comment.Content>
+                </Comment>
+            )
+        })
+      }
+
     render() {
+        console.log(this.props.memos)
         return (
             <Comment.Group>
-            <Comment>
-            <Comment.Content>
-                <Comment.Text>
-                <p>
-                    The hours, minutes and seconds stand as visible reminders that your effort put them all
-                    there.
-                </p>
-                </Comment.Text>
-                <Comment.Metadata>
-                <div>1 day ago</div>
-                </Comment.Metadata>
-            </Comment.Content>
-            </Comment>
-
-        </Comment.Group>
+                {this.renderList()}
+            </Comment.Group>
         );
     }
 }
+
 
 export default Memo;

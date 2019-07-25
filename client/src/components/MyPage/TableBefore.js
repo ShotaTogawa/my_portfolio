@@ -8,7 +8,7 @@ class TableBefore extends Component {
 
   renderList(){
     return this.props.books.map((book, i) => {
-      if (book.status === 1){
+      if (book.status === 0){
         return (
             <tr key={i}>
               <td>{i}</td>

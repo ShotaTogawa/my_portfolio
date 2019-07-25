@@ -18,7 +18,7 @@ export const clearUser = () => {
     };
 };
 
-
+/* User Book */
 export const fetchBook = (id) => async dispatch => {
     const response = await api.get(`/book/${id}`);
     dispatch({type: actionTypes.FETCH_BOOK, payload: response.data});
@@ -39,4 +39,11 @@ export const updateBook = (id, formValues) => async dispatch => {
     const response = api.patch(`/book/${id}`, formValues);
     dispatch({type: actionTypes.UPDATE_BOOK, payload: response.data});
     history.push('/');
+}
+
+/* User Book Memo */
+
+export const fetchMemo = (id) => async dispatch => {
+    const response = await api.get(`/book/${id}/memo`);
+    dispatch({type: actionTypes.FETCH_BOOK_MEMOS, payload: response.data});
 }

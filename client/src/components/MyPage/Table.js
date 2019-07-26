@@ -12,7 +12,7 @@ class Table extends Component {
     return this.props.books.map((book, i) => {
       if (book.status === 1 && book.owner === this.props.user){
         return (
-            <tr key={i} style={{textAlign: "center"}}>
+            <tr key={i} style={{textAlign: "left"}}>
               <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>
               <td>{book.genre}</td>
               <td>{book.author}</td>
@@ -42,7 +42,7 @@ class Table extends Component {
     return (
           <table className="table">
           <thead>
-            <tr style={{textAlign: "center"}}>
+            <tr style={{textAlign: "left"}}>
               <th scope="col">Title</th>
               <th scope="col">Genre</th>
               <th scope="col">Author</th>

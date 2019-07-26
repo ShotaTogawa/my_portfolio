@@ -33,7 +33,7 @@ class BookDetail extends Component {
                             </div>
                             <div className="col-8">
                                 <h2>Memo</h2>
-                                <Memo memos={memos} />
+                                <Memo memos={memos} book={book}/>
                                 <MemoForm book={book}/>
                             </div>
                         </div>

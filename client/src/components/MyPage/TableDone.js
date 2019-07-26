@@ -24,7 +24,7 @@ class TableDone extends Component {
   }
   render() {
     return (
-          <table className="table" style={{textAlign: "center"}}>
+          <table className="table" style={{textAlign: "left"}}>
           <thead>
             <tr>
               <th scope="col">Title</th>

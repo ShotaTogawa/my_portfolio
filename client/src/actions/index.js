@@ -48,3 +48,18 @@ export const fetchMemo = (id) => async dispatch => {
     dispatch({type: actionTypes.FETCH_BOOK_MEMOS, payload: response.data});
     history.push('/')
 }
+
+
+
+/* book list update */
+export const updateDate = (id) => async dispatch => {
+
+}
+
+export const updatePages = (id) => async dispatch => {
+
+}
+
+export const updateEvaluation = (id) => async dispatch => {
+    
+}

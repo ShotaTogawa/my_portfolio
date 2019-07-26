@@ -37,7 +37,7 @@ class PopupEvaluation extends Component {
 
     render() {
         return (
-            <Popup trigger={<Button circular icon={this.props.icon} color={this.props.color} />} flowing hoverable>
+            <Popup trigger={<Button circular icon={this.props.icon} color={this.props.color} size="mini"/>} flowing hoverable>
                 <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="genre">Evaluation</label>
@@ -50,7 +50,7 @@ class PopupEvaluation extends Component {
                                 <option value="5">5</option>
                             </select>
                         </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                        <Button compact color="blue" size="mini">Update</Button>
                 </form>
             </Popup>
         );

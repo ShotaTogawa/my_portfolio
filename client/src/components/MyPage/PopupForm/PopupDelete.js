@@ -1,31 +1,19 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
+import api from '../../../api';
 
 
 class PopupDelete extends Component {
 
-    handleSubmit = async(event) => {
-        event.preventDefault();
-        console.log(this.state);
+    handleSubmit = async() => {
+        const book_id = this.props.memo.book_id
+        const memo_id = this.props.memo._id
 
-        //if (this.isFormValid()){
-            // await this.sendFile();
-            // await api
-            // .post('/book', {
-            //     title,
-            //     genre,
-            //     author,
-            //     page_nums,
-            //     ScheduledStartDate,
-            //     ScheduledEndDate,
-            //     imageUrl,
-            //     owner: this.props.currentUser.uid
-            // })
-            // .then(response => console.log(response))
-            // .catch(err => console.log(err))
-        //}
-        // history.push('/');
-    }
+        await api.delete(`/book/${book_id}/${memo_id}`)
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
+
+        }
 
     render() {
         return (
@@ -34,7 +22,7 @@ class PopupDelete extends Component {
                     <div className="form-group">
                         <label htmlFor="title">Are you sure?</label>
                     </div>
-                    <Button content='Delete' icon='check' labelPosition='left' color="red" size="mini"/>
+                    <Button content='Delete' icon='check' labelPosition='left' color="red" size="mini" />
                 </form>
             </Popup>
         );

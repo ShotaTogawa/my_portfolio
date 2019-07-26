@@ -16,8 +16,8 @@ class DeleteBook extends Component {
         return(
             <React.Fragment>
                 <Link to="/">
-                    <Button 
-                        color='red' 
+                    <Button
+                        color='red'
                         onClick={ ()=> {
                             this.props.deleteBook(id)
                         }}

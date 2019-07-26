@@ -38,15 +38,15 @@ class PopupDateForm extends Component {
 
     render() {
         return (
-            <Popup trigger={<Button circular icon={this.props.icon} color={this.props.color} />} flowing hoverable>
+            <Popup trigger={<Button circular icon={this.props.icon} color={this.props.color} size="mini"/>} flowing hoverable>
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label>Expected day to start</label>
+                    <div style={{marginBottom: "10px"}}>
+                        <label>Pages you read</label>
                         <Calendar
                             onChange={this.setDate}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Button compact color="blue" size="mini">Update</Button>
                 </form>
             </Popup>
         );

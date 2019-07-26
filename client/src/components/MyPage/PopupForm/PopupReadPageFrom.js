@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
+import api from '../../../api';
 
 
 class PopupReadPageFrom extends Component {
 
     state = {
-        pages: ""
+        read_pages: ""
     }
 
     handleChange = (event) => {
@@ -13,38 +14,26 @@ class PopupReadPageFrom extends Component {
     }
 
     handleSubmit = async(event) => {
-        event.preventDefault();
-        console.log(this.state);
-
-        //if (this.isFormValid()){
-            // await this.sendFile();
-            // await api
-            // .post('/book', {
-            //     title,
-            //     genre,
-            //     author,
-            //     page_nums,
-            //     ScheduledStartDate,
-            //     ScheduledEndDate,
-            //     imageUrl,
-            //     owner: this.props.currentUser.uid
-            // })
-            // .then(response => console.log(response))
-            // .catch(err => console.log(err))
-        //}
-        // history.push('/');
+        event.preventDefault()
+        const id = this.props.book._id;
+        const read_pages = this.state.read_pages;
+        console.log(id)
+        api.patch(`/book/${id}/read_pages`, {read_pages})
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
     }
+
 
     render() {
         return (
             <Popup trigger={<Button circular icon={this.props.icon} color={this.props.color} size="mini" />} flowing hoverable>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="title">title</label>
+                        <label htmlFor="title">Read pages</label>
                         <input
                             type="text"
                             className="form-control"
-                            name="pages"
+                            name="read_pages"
                             placeholder="Enter pages you read"
                             onChange={this.handleChange}
                         />

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
 import Calendar from 'react-calendar';
+import api from '../../../api';
 
 
 class PopupDateForm extends Component {
 
     state = {
-        date: ""
+        date: "",
     }
 
     setDate = (date) => {
@@ -15,7 +16,18 @@ class PopupDateForm extends Component {
 
     handleSubmit = async(event) => {
         event.preventDefault();
-        console.log(this.state);
+        const id = this.props.book._id;
+        const date = this.state.date;
+
+        if(this.props.book.status === 0) {
+            api.patch(`/book/${id}/startdate`, {startDate: date, status: 1})
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
+        } else {
+            api.patch(`/book/${id}/enddate`, {endDate: date, status: 2})
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
+        }
 
         //if (this.isFormValid()){
             // await this.sendFile();

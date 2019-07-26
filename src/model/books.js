@@ -19,16 +19,19 @@ const bookSchema = new mongoose.Schema({
     page_nums: {
         type: Number
     },
+    read_pages: {
+        type: Number
+    },
     ScheduledStartDate: {
         type: Date,
     },
     ScheduledEndDate: {
         type: Date
     },
-    StartDate: {
+    startDate: {
         type: Date,
     },
-    EndDate: {
+    endDate: {
         type: Date
     },
     owner: {

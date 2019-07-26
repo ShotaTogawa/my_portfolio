@@ -14,8 +14,8 @@ class TableDone extends Component {
               <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>
               <td>{book.genre}</td>
               <td>{book.author}</td>
-              <td>{moment(book.ScheduledEndDate).format('YYYY-MM-DD')}</td>
               <td>{book.ScheduledEndDate ? moment(book.ScheduledEndDate).format('YYYY-MM-DD'): ''}</td>
+              <td>{book.endDate ? moment(book.endDate).format('YYYY-MM-DD'): ''}</td>
               <td><StarRating evaluation={book.evaluation} /></td>
             </tr>
         )
@@ -24,7 +24,7 @@ class TableDone extends Component {
   }
   render() {
     return (
-          <table className="table">
+          <table className="table" style={{textAlign: "center"}}>
           <thead>
             <tr>
               <th scope="col">Title</th>

@@ -17,7 +17,7 @@ class TableBefore extends Component {
               <td>{book.page_nums}</td>
               <td>{moment(book.createdAt).format('YYYY-MM-DD')}</td>
               <td>{book.ScheduledStartDate ? moment(book.ScheduledStartDate).format('YYYY-MM-DD'): ''}</td>
-              <td><PopupDateForm icon={"calendar alternate outline"} color={"teal"} /></td>
+              <td><PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/></td>
             </tr>
         )
       }
@@ -25,7 +25,7 @@ class TableBefore extends Component {
   }
   render() {
     return (
-          <table className="table">
+          <table className="table" style={{textAlign: "center"}}>
           <thead>
             <tr>
               <th scope="col">Title</th>

@@ -59,6 +59,18 @@ class BookInfo extends Component {
                     </List.Item>
                     <List.Item>
                         <List.Content>
+                            Progress Rate
+                            <List.Header>
+                                {
+                                this.props.book.read_pages === null || this.props.book.page_nums === null
+                                ? ''
+                                : Math.round(this.props.book.read_pages / this.props.book.page_nums * 100) + '%'
+                                }
+                            </List.Header>
+                        </List.Content>
+                    </List.Item>
+                    <List.Item>
+                        <List.Content>
                             Registered Date
                             <List.Header>{moment(this.props.book.createdAt).format('YYYY-MM-DD')}</List.Header>
                         </List.Content>
@@ -71,6 +83,12 @@ class BookInfo extends Component {
                     </List.Item>
                     <List.Item>
                         <List.Content>
+                            Start Date
+                            <List.Header>{this.checkNullForDate(this.props.book.startDate)}</List.Header>
+                        </List.Content>
+                    </List.Item>
+                    <List.Item>
+                        <List.Content>
                             Expected Finish Date
                             <List.Header>{this.checkNullForDate(this.props.book.ScheduledEndDate)}</List.Header>
                         </List.Content>
@@ -78,7 +96,7 @@ class BookInfo extends Component {
                     <List.Item>
                         <List.Content>
                             Finish Date
-                            <List.Header>追記予定</List.Header>
+                            <List.Header>{this.checkNullForDate(this.props.book.endDate)}</List.Header>
                         </List.Content>
                     </List.Item>
                 </List>

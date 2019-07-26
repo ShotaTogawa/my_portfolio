@@ -12,15 +12,21 @@ class Table extends Component {
     return this.props.books.map((book, i) => {
       if (book.status === 1 && book.owner === this.props.user){
         return (
-            <tr key={i}>
+            <tr key={i} style={{textAlign: "center"}}>
               <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>
               <td>{book.genre}</td>
               <td>{book.author}</td>
-              <td>{book.page_nums}</td>
-              <td>{moment(book.createdAt).format('YYYY-MM-DD')}</td>
+              <td>
+                {
+                  book.read_pages === null || book.page_nums === null
+                  ? ''
+                  : Math.round(book.read_pages / book.page_nums * 100) + '%'
+                }
+              </td>
+              <td>{moment(book.startDate).format('YYYY-MM-DD')}</td>
               <td>{book.ScheduledEndDate ? moment(book.ScheduledEndDate).format('YYYY-MM-DD'): ''}</td>
               <td><StarRating evaluation={book.evaluation} /></td>
-              <td style={{textAlign: "center"}}>
+              <td>
                 {/* <Button circular icon='book' color="olive"/> */}
                 <PopupReadPageFrom circular icon='book' color="olive" book={book}/>
                 <PopupEvaluation circular icon='star outline' color="yellow" book={book}/>
@@ -32,6 +38,7 @@ class Table extends Component {
     })
   }
   render() {
+    console.log(this.props.book)
     return (
           <table className="table">
           <thead>

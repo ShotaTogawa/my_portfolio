@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
+import api from '../../../api';
 
 
 class PopupEvaluation extends Component {
 
     state = {
-        star: ""
+        evaluation: ""
     }
 
     handleChange = (event) => {
@@ -13,26 +14,13 @@ class PopupEvaluation extends Component {
     }
 
     handleSubmit = async(event) => {
-        event.preventDefault();
-        console.log(this.state);
-
-        //if (this.isFormValid()){
-            // await this.sendFile();
-            // await api
-            // .post('/book', {
-            //     title,
-            //     genre,
-            //     author,
-            //     page_nums,
-            //     ScheduledStartDate,
-            //     ScheduledEndDate,
-            //     imageUrl,
-            //     owner: this.props.currentUser.uid
-            // })
-            // .then(response => console.log(response))
-            // .catch(err => console.log(err))
-        //}
-        // history.push('/');
+        event.preventDefault()
+        const id = this.props.book._id;
+        const evaluation = this.state.evaluation;
+        console.log(id)
+        api.patch(`/book/${id}/evaluation`, {evaluation})
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
     }
 
     render() {
@@ -41,7 +29,7 @@ class PopupEvaluation extends Component {
                 <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="genre">Evaluation</label>
-                            <select className="form-control" value={this.state.value} name="star" onChange={this.handleChange}>
+                            <select className="form-control" value={this.state.value} name="evaluation" onChange={this.handleChange}>
                                 <option>Evaluation</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>

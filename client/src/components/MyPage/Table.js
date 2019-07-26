@@ -22,9 +22,9 @@ class Table extends Component {
               <td><StarRating evaluation={book.evaluation} /></td>
               <td style={{textAlign: "center"}}>
                 {/* <Button circular icon='book' color="olive"/> */}
-                <PopupReadPageFrom circular icon='book' color="olive"/>
-                <PopupEvaluation circular icon='star outline' color="yellow" />
-                <PopupDateForm icon={"calendar alternate outline"} color={"teal"} />
+                <PopupReadPageFrom circular icon='book' color="olive" book={book}/>
+                <PopupEvaluation circular icon='star outline' color="yellow" book={book}/>
+                <PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
               </td>
             </tr>
         )

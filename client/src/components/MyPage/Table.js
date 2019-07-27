@@ -10,7 +10,7 @@ class Table extends Component {
 
   renderList(){
     return this.props.books.map((book, i) => {
-      if (book.status === 1 && book.owner === this.props.user){
+      if (book.status === "reading"){
         return (
             <tr key={i} style={{textAlign: "left"}}>
               <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>
@@ -38,7 +38,7 @@ class Table extends Component {
     })
   }
   render() {
-    console.log(this.props.book)
+    console.log(this.props.books)
     return (
           <table className="table">
           <thead>

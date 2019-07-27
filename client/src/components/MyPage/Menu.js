@@ -16,7 +16,7 @@ class Menu extends Component {
                         <List.List>
                             <List.Item>
                             <List.Content>
-                                <List.Header>Profile</List.Header>
+                                <List.Header><Link to={"/user"}>Profile</Link></List.Header>
                             </List.Content>
                             </List.Item>
                         </List.List>
@@ -31,7 +31,7 @@ class Menu extends Component {
                         <List.List>
                         <List.Item>
                             <List.Content>
-                                <List.Header><Link to={""}>Book List</Link></List.Header>
+                                <List.Header><Link to={"/"}>Book List</Link></List.Header>
                             </List.Content>
                             </List.Item>
                             <List.Item>

@@ -8,7 +8,7 @@ class TableBefore extends Component {
 
   renderList(){
     return this.props.books.map((book, i) => {
-      if (book.status === 0 && book.owner === this.props.user){
+      if (book.status === "beforeReading"){
         return (
             <tr key={i} >
               <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>

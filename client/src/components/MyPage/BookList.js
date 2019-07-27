@@ -17,6 +17,7 @@ class BookList extends Component {
 
     componentDidMount() {
         const id = this.props.currentUser.uid;
+        console.log(id)
         this.props.fetchBooks(id);
     }
 
@@ -31,7 +32,7 @@ class BookList extends Component {
                     <a href="#tab1" className="nav-link active" data-toggle="tab">Reading</a>
                     </li>
                     <li className="nav-item">
-                    <a href="#tab2" className="nav-link" data-toggle="tab">Before Reding</a>
+                    <a href="#tab2" className="nav-link" data-toggle="tab">Before Reading</a>
                     </li>
                     <li className="nav-item">
                     <a href="#tab3" className="nav-link" data-toggle="tab">Read</a>

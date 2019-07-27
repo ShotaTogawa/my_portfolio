@@ -8,7 +8,7 @@ class TableDone extends Component {
 
   renderList(){
     return this.props.books.map((book, i) => {
-      if (book.status === 2 && book.owner === this.props.user){
+      if (book.status === "read"){
         return (
             <tr key={i}>
               <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>

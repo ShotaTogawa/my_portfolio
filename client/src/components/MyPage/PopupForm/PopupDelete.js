@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
 import api from '../../../api';
-
+import history from '../../../history';
 
 class PopupDelete extends Component {
 
@@ -10,9 +10,8 @@ class PopupDelete extends Component {
         const memo_id = this.props.memo._id
 
         await api.delete(`/book/${book_id}/${memo_id}`)
-        .then(response => console.log(response))
+        .then(() => history.push('/'))
         .catch(err => console.log(err))
-
         }
 
     render() {

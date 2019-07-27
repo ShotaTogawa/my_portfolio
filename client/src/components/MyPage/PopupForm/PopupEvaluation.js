@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
 import api from '../../../api';
-
+import history from '../../../history';
 
 class PopupEvaluation extends Component {
 
@@ -17,9 +17,9 @@ class PopupEvaluation extends Component {
         event.preventDefault()
         const id = this.props.book._id;
         const evaluation = this.state.evaluation;
-        console.log(id)
+
         api.patch(`/book/${id}/evaluation`, {evaluation})
-        .then(response => console.log(response))
+        .then(() => history.push('/'))
         .catch(err => console.log(err))
     }
 

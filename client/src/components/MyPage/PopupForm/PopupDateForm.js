@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
 import Calendar from 'react-calendar';
 import api from '../../../api';
+import history from '../../../history';
 
 
 class PopupDateForm extends Component {
@@ -19,33 +20,17 @@ class PopupDateForm extends Component {
         const id = this.props.book._id;
         const date = this.state.date;
 
-        if(this.props.book.status === 0) {
-            api.patch(`/book/${id}/startdate`, {startDate: date, status: 1})
-            .then(response => console.log(response))
+        if(this.props.book.status === "beforeReading") {
+            api.patch(`/book/${id}/startdate`, {startDate: date, status: "reading"})
+            .then(() => history.push('/'))
             .catch(err => console.log(err))
         } else {
-            api.patch(`/book/${id}/enddate`, {endDate: date, status: 2})
-            .then(response => console.log(response))
+            api.patch(`/book/${id}/enddate`, {endDate: date, status: "read"})
+            .then(() => history.push('/'))
             .catch(err => console.log(err))
         }
 
-        //if (this.isFormValid()){
-            // await this.sendFile();
-            // await api
-            // .post('/book', {
-            //     title,
-            //     genre,
-            //     author,
-            //     page_nums,
-            //     ScheduledStartDate,
-            //     ScheduledEndDate,
-            //     imageUrl,
-            //     owner: this.props.currentUser.uid
-            // })
-            // .then(response => console.log(response))
-            // .catch(err => console.log(err))
-        //}
-        // history.push('/');
+        history.push('/');
     }
 
     render() {

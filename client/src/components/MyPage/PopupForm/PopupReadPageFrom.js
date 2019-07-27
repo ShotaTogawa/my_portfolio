@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
 import api from '../../../api';
-
+import history from '../../../history';
 
 class PopupReadPageFrom extends Component {
 
@@ -19,7 +19,7 @@ class PopupReadPageFrom extends Component {
         const read_pages = this.state.read_pages;
         console.log(id)
         api.patch(`/book/${id}/read_pages`, {read_pages})
-        .then(response => console.log(response))
+        .then(() => history.push('/'))
         .catch(err => console.log(err))
     }
 

@@ -8,6 +8,7 @@ import Login from './components/auth/Login';
 import BookForm from './components/forms/BookForm';
 import DeleteBook from './components/Book/DeleteBook';
 import EditBook from './components/Book/EditBook';
+import Profile from './components/User/Profile';
 
 import "semantic-ui-css/semantic.min.css";
 
@@ -47,6 +48,7 @@ class Root extends React.Component {
                 <Route path="/" exact component={App} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
+                <Route path="/user" component={Profile} />
                 <Route path="/book" component={BookForm} />
                 <Route exact path="/book_detail/:id" component={BookDetail} />
                 <Route path="/book_detail/update/:id" component={EditBook} />

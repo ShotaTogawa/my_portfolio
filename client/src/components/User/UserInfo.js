@@ -15,7 +15,6 @@ class UserInfo extends Component {
 
     componentDidMount() {
         const id = this.props.currentUser.uid;
-        console.log(id)
         this.props.fetchBooks(id);
     }
 
@@ -26,7 +25,6 @@ class UserInfo extends Component {
 
     countGenre = (books) => {
         const counter = {};
-        const total = books.length;
         books.forEach(book => {
             if(counter[book.genre]) {
                 counter[book.genre] += 1
@@ -66,10 +64,7 @@ class UserInfo extends Component {
         const genreCounter = this.state.countGenre;
         return (
             <Fragment>
-                <Container>
-                    <Header as='h2' style={{marginLeft: "15px"}}>{user.displayName}</Header>
-                    <Image src={user.photoURL} size='tiny' circular />
-                </Container>
+                <Header as='h2'>{user.displayName}</Header>
                 <Step.Group style={{marginBottom:"30px"}}>
                     <Step>
                         <Icon name='window minimize outline' />

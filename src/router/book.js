@@ -33,14 +33,25 @@ router.get('/book/:book_id', async(req, res) => {
 
 
 
-router.get('/books', async(req, res) => {
+// router.get('/books', async(req, res) => {
+//     try {
+//         const books = await Book.find();
+//         res.send(books);
+//     } catch (e) {
+//         return res.status(500).send(e);
+//     }
+// })
+
+router.get('/books/:id', async(req, res) => {
+    const owner = req.params.id;
     try {
-        const books = await Book.find();
+        const books = await Book.find({owner});
         res.send(books);
     } catch (e) {
         return res.status(500).send(e);
     }
 })
+
 
 router.delete('/book/:book_id', async(req, res) => {
     const _id = req.params.book_id;

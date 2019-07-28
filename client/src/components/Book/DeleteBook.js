@@ -38,7 +38,6 @@ class DeleteBook extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <Modal
                 defaultOpen basic size='fullscreen'>

@@ -38,7 +38,6 @@ class Table extends Component {
     })
   }
   render() {
-    console.log(this.props.books)
     return (
           <table className="table">
           <thead>

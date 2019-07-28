@@ -50,7 +50,7 @@ class Root extends React.Component {
                 <Route path="/signup" component={Signup} />
                 <Route path="/user" component={Profile} />
                 <Route path="/book" component={BookForm} />
-                <Route exact path="/book_detail/:id" component={BookDetail} />
+                <Route eact path="/book_detail/:id" component={BookDetail} />
                 <Route path="/book_detail/update/:id" component={EditBook} />
                 <Route path="/book_detail/delete/:id" exact component={DeleteBook} />
              </Switch>

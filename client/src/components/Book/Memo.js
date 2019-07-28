@@ -8,7 +8,6 @@ import moment from 'moment';
 class Memo extends Component {
 
     renderList(){
-        console.log("from memo");
         const id = this.props.book._id;
         return this.props.memos.map((memo, i) => {
             if(id === memo.book_id) {

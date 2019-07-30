@@ -6,6 +6,9 @@ import App from './App';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import BookForm from './components/forms/BookForm';
+import DeleteBook from './components/Book/DeleteBook';
+import EditBook from './components/Book/EditBook';
+import Profile from './components/User/Profile';
 
 import "semantic-ui-css/semantic.min.css";
 
@@ -31,7 +34,6 @@ class Root extends React.Component {
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 this.props.setUser(user);
-                console.log('setuser: ' + user);
                 this.props.history.push('/');
             } else {
                 this.props.history.push('/login');
@@ -43,11 +45,14 @@ class Root extends React.Component {
     render () {
         return (
             <Switch>
-                <Route exact path="/" component={App} />
+                <Route path="/" exact component={App} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
+                <Route path="/user" component={Profile} />
                 <Route path="/book" component={BookForm} />
-                <Route path="/book_detail/:id" component={BookDetail} />
+                <Route eact path="/book_detail/:id" component={BookDetail} />
+                <Route path="/book_detail/update/:id" component={EditBook} />
+                <Route path="/book_detail/delete/:id" exact component={DeleteBook} />
              </Switch>
         )
     }

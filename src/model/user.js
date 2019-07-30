@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        required: true
-    },
     name: {
         type: String,
         required: true,
@@ -34,6 +30,13 @@ userSchema.virtual('Book', {
     ref: 'Book',
     localField: '_id',
     foreignField: 'owner'
+})
+
+userSchema.pre('remove', async function(next) {
+    const user = this
+    await Book.deleteMany({ owner: user._id})
+    await Memo.deleteMany({ owner: user._id})
+    next()
 })
 
 const User = mongoose.model('User', userSchema);

@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/type';
 import _ from 'lodash';
 
 const initialUser = {
-    currentUser: null
+    currentUser: {}
 };
 
 const user_reducer = (state = initialUser, action) => {
@@ -40,9 +40,19 @@ const book_reducer = (state={}, action) => {
     }
 }
 
+const memo_reducer = (state={}, action) => {
+    switch(action.type) {
+        case actionTypes.FETCH_BOOK_MEMOS:
+            return {...state, ..._.mapKeys(action.payload, '_id')};
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     user: user_reducer,
-    book: book_reducer
+    book: book_reducer,
+    memo: memo_reducer
 });
 
 export default rootReducer;

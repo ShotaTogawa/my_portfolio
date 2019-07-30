@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 class Menu extends Component {
+
     render() {
         return (
             <div>
@@ -15,12 +16,7 @@ class Menu extends Component {
                         <List.List>
                             <List.Item>
                             <List.Content>
-                                <List.Header>default</List.Header>
-                            </List.Content>
-                            </List.Item>
-                            <List.Item>
-                            <List.Content>
-                                <List.Header>my_theme</List.Header>
+                                <List.Header><Link to={"/user"}>Profile</Link></List.Header>
                             </List.Content>
                             </List.Item>
                         </List.List>
@@ -35,7 +31,7 @@ class Menu extends Component {
                         <List.List>
                         <List.Item>
                             <List.Content>
-                                <List.Header><Link to={""}>Book List</Link></List.Header>
+                                <List.Header><Link to={"/"}>Book List</Link></List.Header>
                             </List.Content>
                             </List.Item>
                             <List.Item>

@@ -21,6 +21,7 @@ class Signup extends Component {
         email: "",
         password: "",
         passwordConfirmation: "",
+        userId: "",
         errors: []
     }
 
@@ -102,8 +103,7 @@ class Signup extends Component {
       * @param event
       */
 
-     handleSubmit = async (event) => {
-        event.preventDefault();
+     handleSubmit = async () => {
         const { name, email, password } = this.state;
         if(this.isFormValid()){
             this.setState({errors:[], loading: true});
@@ -113,7 +113,7 @@ class Signup extends Component {
             .then(createdUser => {
                 createdUser.user
                     .updateProfile({
-                        displayName: this.state.username,
+                        displayName: name,
                         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
                     })
             })
@@ -132,7 +132,7 @@ class Signup extends Component {
                 password: password
             })
             .then(response => console.log(response))
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
         }
     };
 

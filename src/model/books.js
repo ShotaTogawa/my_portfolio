@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-
-const today = new Date();
+const Memo = require('./memo');
 
 const bookSchema = new mongoose.Schema({
     title: {
@@ -20,10 +19,19 @@ const bookSchema = new mongoose.Schema({
     page_nums: {
         type: Number
     },
+    read_pages: {
+        type: Number
+    },
     ScheduledStartDate: {
         type: Date,
     },
     ScheduledEndDate: {
+        type: Date
+    },
+    startDate: {
+        type: Date,
+    },
+    endDate: {
         type: Date
     },
     owner: {
@@ -31,8 +39,8 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
     status: {
-        type: Number,
-        default: 0
+        type: String,
+        default: "beforeReading"
     },
     evaluation: {
         type: Number,
@@ -42,6 +50,17 @@ const bookSchema = new mongoose.Schema({
     timestamps: true
 })
 
+bookSchema.virtual('Memo', {
+    ref: 'Memo',
+    localField: '_id',
+    foreignField: 'book_id'
+})
+
+bookSchema.pre('remove', async function(next) {
+    const book = this
+    await Memo.deleteMany({ owner: book._id})
+    next()
+})
 
 const Book = mongoose.model('Book', bookSchema);
 module.exports = Book;

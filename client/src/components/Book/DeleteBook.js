@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { connect} from 'react-redux';
 import { Link } from 'react-router-dom'
 import { fetchBook, deleteBook } from '../../actions';
-import { Header, Modal, Button } from 'semantic-ui-react'
+import { Header, Modal, Button } from 'semantic-ui-react';
+import history from '../../history';
 
 
 

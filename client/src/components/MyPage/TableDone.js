@@ -23,6 +23,7 @@ class TableDone extends Component {
     })
   }
   render() {
+    console.log(this.props.user);
     return (
           <table className="table" style={{textAlign: "left"}}>
           <thead>

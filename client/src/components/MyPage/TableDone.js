@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import StarRating from './StarRating';
 import { Link } from 'react-router-dom';
+import ImageModal from './PopupForm/ImageModal';
+import { Button } from 'semantic-ui-react';
 
 
 class TableDone extends Component {
+
+  state = {
+    modal: false
+  }
+
+  openModal = () => this.setState({ modal: true });
+
+  closeModal = () => this.setState({ modal: false });
+
 
   renderList(){
     return this.props.books.map((book, i) => {
@@ -17,13 +28,28 @@ class TableDone extends Component {
               <td>{book.ScheduledEndDate ? moment(book.ScheduledEndDate).format('YYYY-MM-DD'): ''}</td>
               <td>{book.endDate ? moment(book.endDate).format('YYYY-MM-DD'): ''}</td>
               <td><StarRating evaluation={book.evaluation} /></td>
+              <td>
+                <Button
+                    circular
+                    icon='file image'
+                    color={'orange'}
+                    size={'mini'}
+                    onClick={this.openModal}
+                  />
+                  <ImageModal
+                    icon={"calendar alternate outline"}
+                    closeModal={this.closeModal}
+                    color={"teal"}
+                    book={book}
+                    modal={this.state.modal}
+                  />
+                </td>
             </tr>
         )
       }
     })
   }
   render() {
-    console.log(this.props.user);
     return (
           <table className="table" style={{textAlign: "left"}}>
           <thead>
@@ -34,6 +60,7 @@ class TableDone extends Component {
               <th scope="col">Scheduled End Date</th>
               <th scope="col">Finish Date</th>
               <th scope="col">Evaluation</th>
+              <th scope="col">Image upload</th>
             </tr>
           </thead>
           <tbody>

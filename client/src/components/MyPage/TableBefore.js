@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import PopupDateForm from './PopupForm/PopupDateForm';
+import ImageModal from './PopupForm/ImageModal';
+import { Button } from 'semantic-ui-react';
 
 
 class TableBefore extends Component {
+
+  state = {
+    modal: false
+  }
+
+  openModal = () => this.setState({ modal: true });
+
+  closeModal = () => this.setState({ modal: false });
+
 
   renderList(){
     return this.props.books.map((book, i) => {
@@ -17,7 +28,23 @@ class TableBefore extends Component {
               <td>{book.page_nums}</td>
               <td>{moment(book.createdAt).format('YYYY-MM-DD')}</td>
               <td>{book.ScheduledStartDate ? moment(book.ScheduledStartDate).format('YYYY-MM-DD'): ''}</td>
-              <td><PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/></td>
+              <td>
+                <PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
+                <Button
+                  circular
+                  icon='file image'
+                  color={'orange'}
+                  size={'mini'}
+                  onClick={this.openModal}
+                />
+                <ImageModal 
+                  icon={"calendar alternate outline"}
+                  closeModal={this.closeModal}
+                  color={"teal"}
+                  book={book}
+                  modal={this.state.modal}
+                />
+              </td>
             </tr>
         )
       }

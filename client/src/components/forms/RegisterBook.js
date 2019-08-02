@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar';
-import firebase from '../../firebase';
-import mime from 'mime-types';
-import uuidv4 from 'uuidv4';
 import { connect } from 'react-redux';
 import api from '../../api';
 import history from '../../history';
@@ -13,15 +10,10 @@ class RegisterBook extends Component {
         title: "",
         genre: "",
         page_nums: "",
-        file: null,
         author: '',
         ScheduledEndDate: "",
         ScheduledStartDate: "",
-        storageRef: firebase.storage().ref(),
-        authorized: ["image/jpeg", "image/png", "image/jpg"],
-        uploadTask: null,
         errors: [],
-        imageUrl: "",
         openCalendar: false,
         owner: this.props.currentUser
     }
@@ -45,35 +37,6 @@ class RegisterBook extends Component {
      */
     isAuthorized = filename => {
         return this.state.authorized.includes(filename);
-    }
-
-    uploadFile = async(file, metadata) => {
-        const path = `books/images/${uuidv4()}.jpg`;
-        await this.setState({uploadTask: this.state.storageRef.child(path).put(file,metadata)}
-                ,() => { this.state.uploadTask.on(
-                    "state_changed",
-                    snap => {
-                    },
-                    err => {
-                        console.log(err)
-                    },
-                    () => {
-                        this.state.uploadTask.snapshot.ref
-                        .getDownloadURL()
-                        .then(downloadUrl => {
-                            this.setState({imageUrl: downloadUrl});
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            this.setState({
-                                errors: this.state.errors.concat(err),
-                                uploadTask: null
-                            });
-                        });
-                    }
-                )
-            }
-        )
     }
 
     isFormEmpty = ({title, genre}) => {
@@ -108,19 +71,6 @@ class RegisterBook extends Component {
         }
     }
 
-    clearFile = () => this.setState({file: null});
-
-    sendFile = () => {
-        const { file } = this.state;
-        if(file !== null) {
-            if (this.isAuthorized(file.type)) {
-                const metadata = { contentType: mime.lookup(file.name)};
-                this.uploadFile(file, metadata);
-                this.clearFile();
-            }
-        }
-    }
-
     /**
      * set user input to state
      * @function
@@ -133,10 +83,10 @@ class RegisterBook extends Component {
 
     handleSubmit = async(event) => {
         event.preventDefault();
-        const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate, imageUrl} = this.state;
+        const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate} = this.state;
 
         //if (this.isFormValid()){
-            await this.sendFile();
+            // await this.sendFile();
             await api
             .post('/book', {
                 title,
@@ -145,23 +95,17 @@ class RegisterBook extends Component {
                 page_nums,
                 ScheduledStartDate,
                 ScheduledEndDate,
-                imageUrl,
                 owner: this.props.currentUser.uid
             })
-            .then(response => console.log(response))
+            .then(response => history.push(`/book_detail/${response.data._id}`))
             .catch(err => console.log(err))
         //}
-        history.push('/');
+        
     }
 
     openCalendar = () => {
         this.setState({openCalendar: true})
     }
-
-    setImageUrl = (imageUrl) => {
-        return imageUrl;
-    }
-
 
     setScheduledStartDate = (ScheduledStartDate) => {
         this.setState({ScheduledStartDate});
@@ -173,7 +117,6 @@ class RegisterBook extends Component {
 
 
     render() {
-        console.log(this.state.imageUrl);
         return (
             <div className="container">
                 <div className="row align-items-center">
@@ -223,10 +166,10 @@ class RegisterBook extends Component {
                             </select>
                         </div>
                         {/* image */}
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label htmlFor="file">Example file input</label>
                             <input type="file" className="form-control-file" name="file" onChange={this.addFile} />
-                        </div>
+                        </div> */}
                         {/* pages */}
                         <div className="form-group">
                             <label htmlFor="page_nums">The book's number of pages</label>

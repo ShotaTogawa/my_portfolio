@@ -7,18 +7,18 @@ import moment from 'moment';
 
 class BookInfo extends Component {
 
-    showStatus = (status) => {
-        if(status === 0) {
-            return 'Before Reading'
-        } else if (status === 1){
-            return 'Reading'
-        } else {
-            return 'Read';
-        }
-    }
+    // showStatus = (status) => {
+    //     if(status === 0) {
+    //         return 'Before Reading'
+    //     } else if (status === 1){
+    //         return 'Reading'
+    //     } else {
+    //         return 'Read';
+    //     }
+    // }
 
     checkNullForDate = (date) => {
-        if(date === null) {
+        if(!date) {
             return '';
         }
         return moment(date).format('YYYY-MM-DD');
@@ -54,7 +54,7 @@ class BookInfo extends Component {
                     <List.Item>
                         <List.Content>
                             Status
-                            <List.Header>{this.showStatus(this.props.book.status)}</List.Header>
+                            <List.Header>{this.props.book.status}</List.Header>
                         </List.Content>
                     </List.Item>
                     <List.Item>
@@ -62,7 +62,7 @@ class BookInfo extends Component {
                             Progress Rate
                             <List.Header>
                                 {
-                                this.props.book.read_pages === null || this.props.book.page_nums === null
+                                !this.props.book.read_pages || !this.props.book.page_nums
                                 ? ''
                                 : Math.round(this.props.book.read_pages / this.props.book.page_nums * 100) + '%'
                                 }

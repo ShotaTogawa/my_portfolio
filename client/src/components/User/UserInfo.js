@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Container, Header, Image, Step, Icon, Grid, Segment } from 'semantic-ui-react';
+import { Header, Step, Icon, Grid } from 'semantic-ui-react';
 import CounterPieChart from './CounterPieChart';
 import { connect } from 'react-redux';
 import { fetchBooks } from '../../actions';

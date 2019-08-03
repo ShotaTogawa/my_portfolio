@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { Table, Header } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Table } from 'semantic-ui-react';
 
 class CountGrahp extends Component {
 
@@ -13,7 +13,7 @@ class CountGrahp extends Component {
                     <Table.HeaderCell>Numbers</Table.HeaderCell>
                 </Table.Row>
                 </Table.Header>
-                
+
                 <Table.Body>
                     <Table.Row>
                         <Table.Cell>

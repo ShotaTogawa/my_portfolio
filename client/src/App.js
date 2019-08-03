@@ -4,7 +4,8 @@ import MyPage from '../src/components/MyPage/MyPage'
 import { connect } from 'react-redux';
 
 class App extends Component {
-  render() {
+
+    render() {
     return (
       <div>
         <Navbar />

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar';
-import firebase from '../../firebase';
-import mime from 'mime-types';
-import uuidv4 from 'uuidv4';
 import { connect } from 'react-redux';
-import api from '../../api';
-import history from '../../history';
+import { createBook } from '../../actions';
+import { Message } from 'semantic-ui-react';
+
 
 class RegisterBook extends Component {
 
@@ -13,15 +11,10 @@ class RegisterBook extends Component {
         title: "",
         genre: "",
         page_nums: "",
-        file: null,
         author: '',
         ScheduledEndDate: "",
         ScheduledStartDate: "",
-        storageRef: firebase.storage().ref(),
-        authorized: ["image/jpeg", "image/png", "image/jpg"],
-        uploadTask: null,
         errors: [],
-        imageUrl: "",
         openCalendar: false,
         owner: this.props.currentUser
     }
@@ -47,35 +40,6 @@ class RegisterBook extends Component {
         return this.state.authorized.includes(filename);
     }
 
-    uploadFile = async(file, metadata) => {
-        const path = `books/images/${uuidv4()}.jpg`;
-        await this.setState({uploadTask: this.state.storageRef.child(path).put(file,metadata)}
-                ,() => { this.state.uploadTask.on(
-                    "state_changed",
-                    snap => {
-                    },
-                    err => {
-                        console.log(err)
-                    },
-                    () => {
-                        this.state.uploadTask.snapshot.ref
-                        .getDownloadURL()
-                        .then(downloadUrl => {
-                            this.setState({imageUrl: downloadUrl});
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            this.setState({
-                                errors: this.state.errors.concat(err),
-                                uploadTask: null
-                            });
-                        });
-                    }
-                )
-            }
-        )
-    }
-
     isFormEmpty = ({title, genre}) => {
         return(
         !title.length ||
@@ -91,34 +55,22 @@ class RegisterBook extends Component {
             error = { message: "Please fill in title and genre Fields"};
             this.setState({ errors: errors.concat(error) });
             return false;
-        } else if (!this.state.ScheduledStartDate.length) {
-                if (!today <= this.state.ScheduledStartDate ) {
+        }
+        if (this.state.ScheduledStartDate.length) {
+                if (today <= this.state.ScheduledStartDate ) {
                 error = { message: "Scheduled start date must be greater equal than today"};
                 this.setState({ errors: errors.concat(error)});
                 return false;
             }
-        } else if (!this.state.ScheduledEndDate.length){
-            if(this.state.ScheduledEndDate < this.state.ScheduledStartDate ){
+        }
+        if (this.state.ScheduledEndDate.length){
+            if(this.state.ScheduledStartDate <= this.state.ScheduledEndDate){
                 error = { message: "Scheduled end date must be greater equal than Scheduled start date"};
                 this.setState({ errors: errors.concat(error)});
                 return false;
             }
-        } else {
-            return true;
         }
-    }
-
-    clearFile = () => this.setState({file: null});
-
-    sendFile = () => {
-        const { file } = this.state;
-        if(file !== null) {
-            if (this.isAuthorized(file.type)) {
-                const metadata = { contentType: mime.lookup(file.name)};
-                this.uploadFile(file, metadata);
-                this.clearFile();
-            }
-        }
+        return true;
     }
 
     /**
@@ -133,35 +85,27 @@ class RegisterBook extends Component {
 
     handleSubmit = async(event) => {
         event.preventDefault();
-        const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate, imageUrl} = this.state;
+        const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate} = this.state;
 
-        //if (this.isFormValid()){
-            await this.sendFile();
-            await api
-            .post('/book', {
+        if (this.isFormValid()){
+            await this.props.createBook({
                 title,
                 genre,
                 author,
                 page_nums,
                 ScheduledStartDate,
                 ScheduledEndDate,
-                imageUrl,
                 owner: this.props.currentUser.uid
             })
-            .then(response => console.log(response))
-            .catch(err => console.log(err))
-        //}
-        history.push('/');
+        }
     }
+
+    displayErrors = errors => errors.map((error, i) => <small key={i} className="form-text alert alert-danger" >{error.message}</small>)
+
 
     openCalendar = () => {
         this.setState({openCalendar: true})
     }
-
-    setImageUrl = (imageUrl) => {
-        return imageUrl;
-    }
-
 
     setScheduledStartDate = (ScheduledStartDate) => {
         this.setState({ScheduledStartDate});
@@ -173,7 +117,6 @@ class RegisterBook extends Component {
 
 
     render() {
-        console.log(this.state.imageUrl);
         return (
             <div className="container">
                 <div className="row align-items-center">
@@ -223,10 +166,10 @@ class RegisterBook extends Component {
                             </select>
                         </div>
                         {/* image */}
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label htmlFor="file">Example file input</label>
                             <input type="file" className="form-control-file" name="file" onChange={this.addFile} />
-                        </div>
+                        </div> */}
                         {/* pages */}
                         <div className="form-group">
                             <label htmlFor="page_nums">The book's number of pages</label>
@@ -266,10 +209,14 @@ class RegisterBook extends Component {
                             : ''
                             }
                         </div>
-                        {/* {this.state.errors.length > 0 && (this.displayErrors(this.state.errors))} */}
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
-                    {/* <small className="form-text text-muted" style={{marginTop: "10px"}}>If you have an account, please <Link to="/login">login here</Link></small> */}
+                    {this.state.errors.length > 0 && (
+                        <Message error>
+                        <h3>Error</h3>
+                        {this.displayErrors(this.state.errors)}
+                        </Message>
+                    )}
                     </div>
                 </div>
             </div>
@@ -282,4 +229,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps)(RegisterBook);
+export default connect(mapStateToProps, {createBook})(RegisterBook);

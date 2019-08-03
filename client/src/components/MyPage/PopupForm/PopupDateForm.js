@@ -15,8 +15,7 @@ class PopupDateForm extends Component {
         this.setState({date});
     }
 
-    handleSubmit = async(event) => {
-        event.preventDefault();
+    handleSubmit = async() => {
         const id = this.props.book._id;
         const date = this.state.date;
 

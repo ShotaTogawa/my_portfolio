@@ -197,5 +197,28 @@ router.patch('/book/:book_id/read_pages', async(req, res) => {
 
 })
 
+router.patch('/book/upload/:id', async(req, res) => {
+    console.log(req)
+    const updates = Object.keys(req.body);
+    const allowUpdates = ['imageUrl'];
+    const isValidOperation = updates.every(update => allowUpdates.includes(update));
+    const _id = req.params.id;
+
+    if (!isValidOperation) {
+        return res.status(400).send({'error': 'Invalid updates'})
+    }
+
+    try {
+        const book = await Book.findById(_id);
+        console.log(book)
+        updates.forEach((update) => book[update]= req.body[update]);
+        await book.save();
+        res.send(book);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+
+})
+
 
 module.exports = router;

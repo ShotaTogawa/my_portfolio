@@ -44,6 +44,10 @@ const memo_reducer = (state={}, action) => {
     switch(action.type) {
         case actionTypes.FETCH_BOOK_MEMOS:
             return {...state, ..._.mapKeys(action.payload, '_id')};
+        case actionTypes.DELETE_BOOK_MEMO:
+            return _.omit(state, action.payload);
+        case actionTypes.CREATE_MEMO:
+            return {...state, [action.payload.id]: action.payload};
         default:
             return state;
     }

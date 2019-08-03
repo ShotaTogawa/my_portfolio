@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import { Item, Image, Divider, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { createMemo } from '../../actions';
+import { connect } from 'react-redux';
+
 
 import moment from 'moment';
 
 
 class BookInfo extends Component {
 
-    // showStatus = (status) => {
-    //     if(status === 0) {
-    //         return 'Before Reading'
-    //     } else if (status === 1){
-    //         return 'Reading'
-    //     } else {
-    //         return 'Read';
-    //     }
-    // }
+    componentDidMount(){
+
+    }
+
 
     checkNullForDate = (date) => {
         if(!date) {
@@ -25,6 +23,7 @@ class BookInfo extends Component {
     }
 
     render() {
+        console.log(this.props.book);
         return (
             <Item>
                 {this.props.book.imageUrl

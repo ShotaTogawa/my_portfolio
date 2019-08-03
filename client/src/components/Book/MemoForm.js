@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import api from '../../api';
+import { createMemo } from '../../actions';
+import { connect } from 'react-redux';
 
 
 class MemoForm extends Component {
@@ -15,15 +17,17 @@ class MemoForm extends Component {
 
     handleSubmit = async () => {
         if(this.state.memo) {
-            await api
-                .post(`book/${this.props.book._id}/memo`,{
-                    book_id: this.props.book._id,
-                    owner: this.props.book.owner,
-                    memo: this.state.memo
-                })
-                .then(response => console.log(response))
-                .catch(err => console.log(err))
-            }
+            this.props.createMemo(this.props.book._id, this.state.memo);
+            // await api
+            //     .post(`book/${this.props.book._id}/memo`,{
+            //         book_id: this.props.book._id,
+            //         owner: this.props.book.owner,
+            //         memo: this.state.memo
+            //     })
+            //     .then(response => console.log(response))
+            //     .catch(err => console.log(err))
+            // 
+        }
     }
 
     render() {
@@ -36,4 +40,4 @@ class MemoForm extends Component {
     }
 }
 
-export default MemoForm;
+export default connect(null, {createMemo})(MemoForm);

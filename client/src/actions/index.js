@@ -36,7 +36,6 @@ export const fetchBook = (id) => async dispatch => {
 export const fetchBooks = (id) => async dispatch => {
     const response = await api.get(`/books/${id}`);
     dispatch({type: actionTypes.FETCH_BOOKS, payload: response.data});
-    history.push('/');
 }
 
 export const deleteBook = (id) => async dispatch => {
@@ -59,8 +58,8 @@ export const fetchMemo = (id) => async dispatch => {
     history.push('/')
 }
 
-export const createMemo = (book_id) => async dispatch => {
-    const response = await api.post(`book/${book_id}/memo`);
+export const createMemo = (book_id, memo) => async dispatch => {
+    const response = await api.post(`book/${book_id}/memo`, memo);
     dispatch({type: actionTypes.CREATE_MEMO, payload: response.data});
     history.push(`/book_detail/${book_id}/`);
 }
@@ -68,5 +67,4 @@ export const createMemo = (book_id) => async dispatch => {
 export const deleteMemo = (book_id, memo_id) => async dispatch => {
     await api.delete(`/book/${book_id}/${memo_id}`);
     dispatch({type: actionTypes.DELETE_BOOK_MEMO, payload: memo_id});
-    history.push(`/book_detail/${book_id}/`);
 }

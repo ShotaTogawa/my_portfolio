@@ -15,7 +15,7 @@ class BookList extends Component {
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
         const id = this.props.currentUser.uid;
         this.props.fetchBooks(id);
     }

@@ -17,9 +17,43 @@ class TableBefore extends Component {
   closeModal = () => this.setState({ modal: false });
 
 
+  // renderList(){
+  //   return this.props.books.map((book, i) => {
+  //     if (book.status === "beforeReading"){
+  //       return (
+  //           <tr key={i} >
+  //             <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>
+  //             <td>{book.genre}</td>
+  //             <td>{book.author}</td>
+  //             <td>{book.page_nums}</td>
+  //             <td>{moment(book.createdAt).format('YYYY-MM-DD')}</td>
+  //             <td>{book.ScheduledStartDate ? moment(book.ScheduledStartDate).format('YYYY-MM-DD'): ''}</td>
+  //             <td>
+  //               <PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
+  //               <Button
+  //                 circular
+  //                 icon='file image'
+  //                 color={'orange'}
+  //                 size={'mini'}
+  //                 onClick={this.openModal}
+  //               />
+  //               <ImageModal 
+  //                 icon={"calendar alternate outline"}
+  //                 closeModal={this.closeModal}
+  //                 color={"teal"}
+  //                 book={book}
+  //                 modal={this.state.modal}
+  //               />
+  //             </td>
+  //           </tr>
+  //       )
+  //     }
+  //   })
+  // }
+
   renderList(){
-    return this.props.books.map((book, i) => {
-      if (book.status === "beforeReading"){
+    return this.props.books.filter((book) => book.status === "beforeReading")
+      .map((book, i) =>{
         return (
             <tr key={i} >
               <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>
@@ -46,10 +80,10 @@ class TableBefore extends Component {
                 />
               </td>
             </tr>
-        )
-      }
+      )
     })
   }
+
   render() {
     return (
           <table className="table" style={{textAlign: "left"}}>

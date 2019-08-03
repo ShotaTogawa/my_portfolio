@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar';
 import { connect } from 'react-redux';
-import api from '../../api';
-import history from '../../history';
 import { createBook } from '../../actions';
 import { Message } from 'semantic-ui-react';
 
@@ -118,7 +116,6 @@ class RegisterBook extends Component {
 
 
     render() {
-        console.log(this.state.errors)
         return (
             <div className="container">
                 <div className="row align-items-center">

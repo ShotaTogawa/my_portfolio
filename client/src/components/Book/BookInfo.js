@@ -7,16 +7,6 @@ import moment from 'moment';
 
 class BookInfo extends Component {
 
-    // showStatus = (status) => {
-    //     if(status === 0) {
-    //         return 'Before Reading'
-    //     } else if (status === 1){
-    //         return 'Reading'
-    //     } else {
-    //         return 'Read';
-    //     }
-    // }
-
     checkNullForDate = (date) => {
         if(!date) {
             return '';

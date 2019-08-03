@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
 // import api from '../../../api';
 // import history from '../../../history';
-import { deleteMemo } from '../../../actions';
+import { deleteMemo, fetchMemo } from '../../../actions';
 import { connect } from 'react-redux';
 
 
 class PopupDelete extends Component {
 
-    handleSubmit = async() => {
+    handleSubmit = () => {
         const book_id = this.props.memo.book_id
         const memo_id = this.props.memo._id
 
         // await api.delete(`/book/${book_id}/${memo_id}`)
-        await this.props.deleteMemo(book_id, memo_id);
+        this.props.deleteMemo(book_id, memo_id);
+        this.props.fetchMemo(book_id);
         }
 
     render() {
@@ -30,5 +31,5 @@ class PopupDelete extends Component {
     }
 }
 
-export default connect(null, {deleteMemo})(PopupDelete);
+export default connect(null, {deleteMemo, fetchMemo})(PopupDelete);
 

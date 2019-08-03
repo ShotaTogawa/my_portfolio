@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
-import { createMemo } from '../../actions';
+import { createMemo, fetchMemo } from '../../actions';
 import { connect } from 'react-redux';
 
 
@@ -14,7 +14,8 @@ class MemoForm extends Component {
         this.setState({memo: event.target.value})
     }
 
-    handleSubmit = async () => {
+    handleSubmit = async (event) => {
+        event.preventDefault();
         if(this.state.memo) {
             this.props.createMemo(this.props.book._id, {
                 book_id: this.props.book._id,
@@ -22,6 +23,7 @@ class MemoForm extends Component {
                 memo: this.state.memo
             });
         }
+        this.props.fetchMemo(this.props.book._id);
     }
 
     render() {
@@ -34,4 +36,4 @@ class MemoForm extends Component {
     }
 }
 
-export default connect(null, {createMemo})(MemoForm);
+export default connect(null, {createMemo, fetchMemo})(MemoForm);

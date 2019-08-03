@@ -2,19 +2,13 @@ import React, { Component } from 'react';
 import { Comment } from 'semantic-ui-react';
 import PopupDelete from '../MyPage/PopupForm/PopupDelete';
 import moment from 'moment';
-import { fetchMemo } from '../../actions';
-import { connect } from 'react-redux';
 
 
 class Memo extends Component {
 
-    componentDidMount() {
-        this.props.fetchMemo(this.props.book._id);
-    }
-
     renderList(){
-        // const id = this.props.book._id;
-        return this.props.memos.map((memo, i) => {
+        return this.props.memos.filter((memo) => memo.book_id === this.props.book._id)
+        .map((memo, i) => {
             return (
                 <Comment key={i}>
                     <Comment.Content>
@@ -29,7 +23,7 @@ class Memo extends Component {
                     </Comment.Content>
                 </Comment>
             )
-        }) 
+        })
     }
 
     render() {
@@ -43,10 +37,4 @@ class Memo extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        memos: Object.values(state.memo)
-    }
-}
-
-export default connect(mapStateToProps, { fetchMemo })(Memo);
+export default Memo;

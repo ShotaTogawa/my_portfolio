@@ -29,20 +29,14 @@ class DeleteBook extends Component {
         )
     }
 
-    renderContent () {
-        if(!this.props.book) {
-            return "Are you sure you want to delete a Book?"
-        }
-        return `Are you sure you want to delete a book with title: ${this.props.book.title}`
-    }
 
     render() {
         return (
             <Modal
                 defaultOpen basic size='fullscreen'>
-                <Header icon='archive' content='Archive Old Messages' />
+                <Header icon='archive' content='Archive this book' />
                 <Modal.Content>
-                    {this.renderContent()}
+                    Are you sure?
                 </Modal.Content>
                 <Modal.Actions>
                     {this.renderActions()}

@@ -83,7 +83,8 @@ class RegisterBook extends Component {
     }
 
 
-    handleSubmit = async() => {
+    handleSubmit = async(event) => {
+        event.preventDefault();
         const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate} = this.state;
 
         if (this.isFormValid()){

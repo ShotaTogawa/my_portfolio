@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from './firebase';
 import './index.css';
-import MyPage from './components/MyPage/MyPage';
+import App from './App';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import BookForm from './components/forms/BookForm';
@@ -44,7 +44,7 @@ class Root extends React.Component {
     render () {
         return (
             <Switch>
-                <Route path="/" exact component={MyPage} />
+                <Route path="/" exact component={App} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/user" component={Profile} />

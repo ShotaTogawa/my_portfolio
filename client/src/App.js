@@ -2,31 +2,23 @@ import React, { Component } from 'react';
 import Navbar from '../src/components/Navbar/Navbar';
 import MyPage from '../src/components/MyPage/MyPage'
 import { connect } from 'react-redux';
-import { fetchBooks } from './actions';
 
 class App extends Component {
 
-  componentWillMount() {
-    const id = this.props.currentUser.uid;
-    this.props.fetchBooks(id);
-  }
-
-  render() {
-    const books = this.props.books;
+    render() {
     return (
       <div>
         <Navbar />
-        <MyPage books={books} />
+        <MyPage />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
-  books: Object.values(state.book)
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
 })
 
-export default connect(mapStateToProps,{fetchBooks})(App);
+export default connect(mapStateToProps)(App);
 
 

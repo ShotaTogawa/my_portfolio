@@ -19,55 +19,6 @@ class Table extends Component {
 
   closeModal = () => this.setState({ modal: false });
 
-
-  // renderList(){
-  //   return this.props.books.map((book, i) => {
-  //     if (book.status === "reading"){
-  //       return (
-  //           <tr key={i} style={{textAlign: "left"}}>
-  //             <td><Link to={`/book_detail/${book._id}`}>{book.title}</Link></td>
-  //             <td>{book.genre}</td>
-  //             <td>{book.author}</td>
-  //             <td>
-  //               {
-  //                 !book.read_pages || !book.page_nums
-  //                 ? ''
-  //                 : Math.round(book.read_pages / book.page_nums * 100) + '%'
-  //               }
-  //             </td>
-  //             <td>{moment(book.startDate).format('YYYY-MM-DD')}</td>
-  //             <td>{book.ScheduledEndDate ? moment(book.ScheduledEndDate).format('YYYY-MM-DD'): ''}</td>
-  //             <td><StarRating evaluation={book.evaluation} /></td>
-  //             <td>
-  //               {/* <Button circular icon='book' color="olive"/> */}
-  //               <PopupReadPageFrom circular icon='book' color="olive" book={book}/>
-  //               <PopupEvaluation circular icon='star outline' color="yellow" book={book}/>
-  //               <PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
-  //               <Button
-  //                 circular
-  //                 icon='file image'
-  //                 color={'orange'}
-  //                 size={'mini'}
-  //                 onClick={this.openModal}
-  //               />
-  //               <ImageModal 
-  //                 icon={"calendar alternate outline"}
-  //                 closeModal={this.closeModal}
-  //                 color={"teal"}
-  //                 book={book}
-  //                 modal={this.state.modal}
-  //               />
-  //             </td>
-  //           </tr>
-  //       )
-  //     }
-  //   })
-  // }
-
-  // this.props.comments
-  // .filter(commentReply => commentReply.replyTo === comment.id)
-  // .map((commentReply, idx) => <CommentItem key={idx} className="SubComment"/>);
-
   renderList(){
     return this.props.books.filter((book) => book.status === "reading")
       .map((book, i) =>{

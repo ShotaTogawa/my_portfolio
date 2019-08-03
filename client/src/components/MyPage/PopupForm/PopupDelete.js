@@ -8,13 +8,13 @@ import { connect } from 'react-redux';
 
 class PopupDelete extends Component {
 
-    handleSubmit = () => {
+    handleSubmit = async() => {
         const book_id = this.props.memo.book_id
         const memo_id = this.props.memo._id
 
         // await api.delete(`/book/${book_id}/${memo_id}`)
-        this.props.deleteMemo(book_id, memo_id);
-        this.props.fetchMemo(book_id);
+        await this.props.deleteMemo(book_id, memo_id);
+        await this.props.fetchMemo(book_id);
         }
 
     render() {

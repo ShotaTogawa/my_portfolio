@@ -21,7 +21,6 @@ router.get('/book/:book_id', async(req, res) => {
     const _id = req.params.book_id;
     try {
         const book = await Book.findById(_id);
-        console.log(book)
         if (!book) {
             return res.status(404).send();
         }
@@ -31,16 +30,6 @@ router.get('/book/:book_id', async(req, res) => {
     }
 })
 
-
-
-// router.get('/books', async(req, res) => {
-//     try {
-//         const books = await Book.find();
-//         res.send(books);
-//     } catch (e) {
-//         return res.status(500).send(e);
-//     }
-// })
 
 router.get('/books/:id', async(req, res) => {
     const owner = req.params.id;
@@ -66,7 +55,6 @@ router.delete('/book/:book_id', async(req, res) => {
 })
 
 router.patch('/book/:book_id', async(req, res) => {
-    console.log(req.body)
     const updates = Object.keys(req.body);
     const allowUpdates = ['title', 'genre', 'imageUrl', 'page_nums', 'ScheduledStartDate', 'ScheduledEndDate'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));
@@ -87,7 +75,6 @@ router.patch('/book/:book_id', async(req, res) => {
 });
 
 router.patch('/book/:book_id/evaluation', async(req, res) => {
-    console.log(req)
     const updates = Object.keys(req.body);
     const allowUpdates = ['evaluation'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));
@@ -109,7 +96,6 @@ router.patch('/book/:book_id/evaluation', async(req, res) => {
 })
 
 router.patch('/book/:book_id/evaluation', async(req, res) => {
-    console.log(req)
     const updates = Object.keys(req.body);
     const allowUpdates = ['evaluation'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));
@@ -131,7 +117,6 @@ router.patch('/book/:book_id/evaluation', async(req, res) => {
 })
 
 router.patch('/book/:book_id/startdate', async(req, res) => {
-    console.log(req)
     const updates = Object.keys(req.body);
     const allowUpdates = ['startDate', 'status'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));
@@ -154,7 +139,6 @@ router.patch('/book/:book_id/startdate', async(req, res) => {
 
 
 router.patch('/book/:book_id/enddate', async(req, res) => {
-    console.log(req)
     const updates = Object.keys(req.body);
     const allowUpdates = ['endDate', 'status'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));
@@ -176,7 +160,6 @@ router.patch('/book/:book_id/enddate', async(req, res) => {
 })
 
 router.patch('/book/:book_id/read_pages', async(req, res) => {
-    console.log(req)
     const updates = Object.keys(req.body);
     const allowUpdates = ['read_pages'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));
@@ -198,7 +181,6 @@ router.patch('/book/:book_id/read_pages', async(req, res) => {
 })
 
 router.patch('/book/upload/:id', async(req, res) => {
-    console.log(req)
     const updates = Object.keys(req.body);
     const allowUpdates = ['imageUrl'];
     const isValidOperation = updates.every(update => allowUpdates.includes(update));
@@ -210,7 +192,6 @@ router.patch('/book/upload/:id', async(req, res) => {
 
     try {
         const book = await Book.findById(_id);
-        console.log(book)
         updates.forEach((update) => book[update]= req.body[update]);
         await book.save();
         res.send(book);

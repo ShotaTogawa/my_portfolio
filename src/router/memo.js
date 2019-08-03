@@ -35,10 +35,8 @@ router.get('/book/:book_id/memo', async(req, res) => {
 router.delete('/book/:book_id/:memo_id', async(req, res) => {
     const _id = req.params.memo_id;
     const book_id = req.params.book_id;
-    console.log(req.params);
     try {
         const memo = await Memo.findOneAndDelete({book_id: book_id, _id: _id});
-        console.log(memo);
         res.send(memo);
     } catch (e) {
         return res.status(500).send(e);

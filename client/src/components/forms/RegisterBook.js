@@ -3,6 +3,9 @@ import Calendar from 'react-calendar';
 import { connect } from 'react-redux';
 import api from '../../api';
 import history from '../../history';
+import { createBook } from '../../actions';
+import { Message } from 'semantic-ui-react';
+
 
 class RegisterBook extends Component {
 
@@ -54,21 +57,22 @@ class RegisterBook extends Component {
             error = { message: "Please fill in title and genre Fields"};
             this.setState({ errors: errors.concat(error) });
             return false;
-        } else if (!this.state.ScheduledStartDate.length) {
-                if (!today <= this.state.ScheduledStartDate ) {
+        }
+        if (this.state.ScheduledStartDate.length) {
+                if (today <= this.state.ScheduledStartDate ) {
                 error = { message: "Scheduled start date must be greater equal than today"};
                 this.setState({ errors: errors.concat(error)});
                 return false;
             }
-        } else if (!this.state.ScheduledEndDate.length){
-            if(this.state.ScheduledEndDate < this.state.ScheduledStartDate ){
+        }
+        if (this.state.ScheduledEndDate.length){
+            if(this.state.ScheduledStartDate <= this.state.ScheduledEndDate){
                 error = { message: "Scheduled end date must be greater equal than Scheduled start date"};
                 this.setState({ errors: errors.concat(error)});
                 return false;
             }
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
@@ -85,10 +89,8 @@ class RegisterBook extends Component {
         event.preventDefault();
         const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate} = this.state;
 
-        //if (this.isFormValid()){
-            // await this.sendFile();
-            await api
-            .post('/book', {
+        if (this.isFormValid()){
+            await this.props.createBook({
                 title,
                 genre,
                 author,
@@ -97,11 +99,11 @@ class RegisterBook extends Component {
                 ScheduledEndDate,
                 owner: this.props.currentUser.uid
             })
-            .then(response => history.push(`/book_detail/${response.data._id}`))
-            .catch(err => console.log(err))
-        //}
-        
+        }
     }
+
+    displayErrors = errors => errors.map((error, i) => <small key={i} className="form-text alert alert-danger" >{error.message}</small>)
+
 
     openCalendar = () => {
         this.setState({openCalendar: true})
@@ -117,6 +119,7 @@ class RegisterBook extends Component {
 
 
     render() {
+        console.log(this.state.errors)
         return (
             <div className="container">
                 <div className="row align-items-center">
@@ -209,10 +212,14 @@ class RegisterBook extends Component {
                             : ''
                             }
                         </div>
-                        {/* {this.state.errors.length > 0 && (this.displayErrors(this.state.errors))} */}
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
-                    {/* <small className="form-text text-muted" style={{marginTop: "10px"}}>If you have an account, please <Link to="/login">login here</Link></small> */}
+                    {this.state.errors.length > 0 && (
+                        <Message error>
+                        <h3>Error</h3>
+                        {this.displayErrors(this.state.errors)}
+                        </Message>
+                    )}
                     </div>
                 </div>
             </div>
@@ -225,4 +232,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps)(RegisterBook);
+export default connect(mapStateToProps, {createBook})(RegisterBook);

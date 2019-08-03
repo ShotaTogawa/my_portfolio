@@ -23,7 +23,7 @@ export const clearUser = () => {
 export const createBook = (formValues) => async dispatch => {
     const response = await api.post('/book', formValues);
     dispatch({type: actionTypes.CREATE_BOOK, payload: response.data});
-    history.push(`/book_detail/${response.data._id}/`);
+    history.push(`/book_detail/${response.data._id}`);
 }
 
 

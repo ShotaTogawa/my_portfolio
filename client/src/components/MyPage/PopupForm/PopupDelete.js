@@ -7,29 +7,31 @@ import { connect } from 'react-redux';
 
 
 class PopupDelete extends Component {
-
-    handleSubmit = async() => {
+    componentDidMount() {
         const book_id = this.props.memo.book_id
-        const memo_id = this.props.memo._id
+        this.props.fetchMemo(book_id);
+    }
 
-        // await api.delete(`/book/${book_id}/${memo_id}`)
-        await this.props.deleteMemo(book_id, memo_id);
-        await this.props.fetchMemo(book_id);
-        }
+    handleClick = () => {
+        const memo_id = this.props.memo._id
+        const book_id = this.props.memo.book_id
+        this.props.deleteMemo(book_id, memo_id);
+    }
 
     render() {
         return (
             <Popup trigger={<Button circular icon={this.props.icon} color={this.props.color} size={this.props.size} />} flowing hoverable>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="title">Are you sure?</label>
-                    </div>
-                    <Button content='Delete' icon='check' labelPosition='left' color="red" size="mini" />
-                </form>
+                <div>
+                    <label htmlFor="title">Are you sure?</label>
+                </div>
+                <Button content='Delete' icon='check' labelPosition='left' color="red" size="mini" onClick={this.handleClick}/>
             </Popup>
         );
     }
 }
+
+
+
 
 export default connect(null, {deleteMemo, fetchMemo})(PopupDelete);
 

@@ -35,7 +35,6 @@ class Table extends Component {
               }
             </td>
             <td>{moment(book.startDate).format('YYYY-MM-DD')}</td>
-            <td>{book.ScheduledEndDate ? moment(book.ScheduledEndDate).format('YYYY-MM-DD'): ''}</td>
             <td><StarRating evaluation={book.evaluation} /></td>
             <td>
               {/* <Button circular icon='book' color="olive"/> */}
@@ -72,7 +71,6 @@ class Table extends Component {
               <th scope="col">Author</th>
               <th scope="col">Progress</th>
               <th scope="col">Start Date</th>
-              <th scope="col">Scheduled End Date</th>
               <th scope="col">Evaluation</th>
               <th scope="col">Read Pages/Evaluation/Finish Date</th>
             </tr>

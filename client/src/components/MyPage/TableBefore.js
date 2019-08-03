@@ -26,7 +26,6 @@ class TableBefore extends Component {
               <td>{book.author}</td>
               <td>{book.page_nums}</td>
               <td>{moment(book.createdAt).format('YYYY-MM-DD')}</td>
-              <td>{book.ScheduledStartDate ? moment(book.ScheduledStartDate).format('YYYY-MM-DD'): ''}</td>
               <td>
                 <PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
                 <Button
@@ -59,7 +58,6 @@ class TableBefore extends Component {
               <th scope="col">Author</th>
               <th scope="col">Pages</th>
               <th scope="col">Registered Date</th>
-              <th scope="col">Scheduled Start Date</th>
               <th scope="col">Start Date</th>
             </tr>
           </thead>

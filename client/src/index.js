@@ -20,7 +20,7 @@ import {
 } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
-import { setUser, clearUser } from './actions';
+import { setUser, clearUser, fetchBooks } from './actions';
 import rootReducer from './reducers';
 import BookDetail from './components/Book/BookDetail';
 import reduxThunk from 'redux-thunk'
@@ -33,6 +33,7 @@ class Root extends React.Component {
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 this.props.setUser(user);
+                this.props.fetchBooks(user.uid);
                 this.props.history.push('/');
             } else {
                 this.props.history.push('/login');
@@ -58,7 +59,7 @@ class Root extends React.Component {
 }
 
 const RootWithAuth = withRouter(
-    connect(null, {setUser, clearUser})(Root)
+    connect(null, {setUser, clearUser, fetchBooks})(Root)
 );
 
 ReactDOM.render(

@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar';
 import { connect } from 'react-redux';
 import { createBook } from '../../actions';
 import { Message } from 'semantic-ui-react';
 
-
 class RegisterBook extends Component {
+
 
     state = {
         title: "",
         genre: "",
         page_nums: "",
         author: '',
-        ScheduledEndDate: "",
-        ScheduledStartDate: "",
         errors: [],
         openCalendar: false,
         owner: this.props.currentUser
@@ -56,20 +53,6 @@ class RegisterBook extends Component {
             this.setState({ errors: errors.concat(error) });
             return false;
         }
-        if (this.state.ScheduledStartDate.length) {
-                if (today <= this.state.ScheduledStartDate ) {
-                error = { message: "Scheduled start date must be greater equal than today"};
-                this.setState({ errors: errors.concat(error)});
-                return false;
-            }
-        }
-        if (this.state.ScheduledEndDate.length){
-            if(this.state.ScheduledStartDate <= this.state.ScheduledEndDate){
-                error = { message: "Scheduled end date must be greater equal than Scheduled start date"};
-                this.setState({ errors: errors.concat(error)});
-                return false;
-            }
-        }
         return true;
     }
 
@@ -83,9 +66,8 @@ class RegisterBook extends Component {
     }
 
 
-    handleSubmit = async(event) => {
-        event.preventDefault();
-        const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate} = this.state;
+    handleSubmit = async() => {
+        const {title, genre, author, page_nums } = this.state;
 
         if (this.isFormValid()){
             await this.props.createBook({
@@ -93,28 +75,12 @@ class RegisterBook extends Component {
                 genre,
                 author,
                 page_nums,
-                ScheduledStartDate,
-                ScheduledEndDate,
                 owner: this.props.currentUser.uid
             })
         }
     }
 
     displayErrors = errors => errors.map((error, i) => <small key={i} className="form-text alert alert-danger" >{error.message}</small>)
-
-
-    openCalendar = () => {
-        this.setState({openCalendar: true})
-    }
-
-    setScheduledStartDate = (ScheduledStartDate) => {
-        this.setState({ScheduledStartDate});
-    }
-
-    setScheduledEndDate = (ScheduledEndDate) => {
-        this.setState({ScheduledEndDate});
-    }
-
 
     render() {
         return (
@@ -180,34 +146,6 @@ class RegisterBook extends Component {
                                 placeholder="Enter the number of pages of the book"
                                 onChange={this.handleChange}
                             />
-                        </div>
-                        {/* 開始予定日 */}
-                        <div className="form-group">
-                            <p>Expected Reading Start and Finised Date</p>
-                            {this.state.openCalendar ?
-                            <div>
-                                <label>Expected day to start</label>
-                                <Calendar
-                                    onChange={this.setScheduledStartDate}
-                                />
-                            </div>
-                            :
-                            <div>
-                                <button onClick={this.openCalendar} className="btn btn-outline-secondary btn-sm">Open calendar</button>
-                            </div>
-                            }
-                        </div>
-                        {/* 読了予定日 */}
-                        <div className="form-group">
-                            {this.state.openCalendar ?
-                            <div>
-                                <label>Expected day to fishih</label>
-                                <Calendar
-                                    onChange={this.setScheduledEndDate}
-                                />
-                            </div>
-                            : ''
-                            }
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>

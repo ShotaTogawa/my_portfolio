@@ -20,7 +20,7 @@ router.post('/book/:book_id/memo', async(req, res) => {
 router.get('/book/:book_id/memo', async(req, res) => {
     const book_id = req.params.book_id;
     try {
-        const memo = await Memo.find({book_id});
+        const memo = await Memo.find({book_id}).sort({ createdBy: 1 });
         console.log(memo)
         if (!memo) {
             return res.status(404).send();

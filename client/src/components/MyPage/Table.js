@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import StarRating from './StarRating';
 import { Link } from 'react-router-dom';
-import PopupDateForm from './PopupForm/PopupDateForm';
+import PopupEndDateForm from './PopupForm/PopupEndDateForm';
 import PopupReadPageFrom from './PopupForm/PopupReadPageFrom';
 import PopupEvaluation from './PopupForm/PopupEvaluation';
 import ImageModal from './PopupForm/ImageModal';
@@ -40,7 +40,7 @@ class Table extends Component {
               {/* <Button circular icon='book' color="olive"/> */}
               <PopupReadPageFrom circular icon='book' color="olive" book={book}/>
               <PopupEvaluation circular icon='star outline' color="yellow" book={book}/>
-              <PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
+              <PopupEndDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
               <Button
                 circular
                 icon='file image'

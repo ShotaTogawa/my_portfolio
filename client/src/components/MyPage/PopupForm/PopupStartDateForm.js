@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
 import Calendar from 'react-calendar';
-import api from '../../../api';
-import history from '../../../history';
+import { updateStartDate } from '../../../actions';
+import { connect } from 'react-redux';
 
 
-class PopupDateForm extends Component {
+class PopupStartDateForm extends Component {
 
     state = {
         date: "",
@@ -18,18 +18,7 @@ class PopupDateForm extends Component {
     handleSubmit = async() => {
         const id = this.props.book._id;
         const date = this.state.date;
-
-        if(this.props.book.status === "beforeReading") {
-            api.patch(`/book/${id}/startdate`, {startDate: date, status: "reading"})
-            .then(() => history.push('/'))
-            .catch(err => console.log(err))
-        } else {
-            api.patch(`/book/${id}/enddate`, {endDate: date, status: "read"})
-            .then(() => history.push('/'))
-            .catch(err => console.log(err))
-        }
-
-        history.push('/');
+        await this.props.updateStartDate(id, {startDate: date, status: "reading"});
     }
 
     render() {
@@ -49,5 +38,5 @@ class PopupDateForm extends Component {
     }
 }
 
-export default PopupDateForm;
+export default connect(null,{ updateStartDate })(PopupStartDateForm);
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
-import api from '../../../api';
-import history from '../../../history';
+import { updateReadPages } from '../../../actions';
+import { connect } from 'react-redux';
 
 class PopupReadPageFrom extends Component {
 
@@ -13,16 +13,12 @@ class PopupReadPageFrom extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    handleSubmit = async(event) => {
-        event.preventDefault()
+    handleSubmit = async() => {
         const id = this.props.book._id;
         const read_pages = this.state.read_pages;
-        console.log(id)
-        api.patch(`/book/${id}/read_pages`, {read_pages})
-        .then(() => history.push('/'))
-        .catch(err => console.log(err))
+        this.props.updateReadPages(id, {read_pages});
     }
-
+l
 
     render() {
         return (
@@ -45,5 +41,5 @@ class PopupReadPageFrom extends Component {
     }
 }
 
-export default PopupReadPageFrom;
+export default connect(null, {updateReadPages})(PopupReadPageFrom);
 

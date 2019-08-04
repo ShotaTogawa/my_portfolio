@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import PopupDateForm from './PopupForm/PopupDateForm';
+import PopupStartDateForm from './PopupForm/PopupStartDateForm';
 import ImageModal from './PopupForm/ImageModal';
 import { Button } from 'semantic-ui-react';
 
@@ -27,7 +27,7 @@ class TableBefore extends Component {
               <td>{book.page_nums}</td>
               <td>{moment(book.createdAt).format('YYYY-MM-DD')}</td>
               <td>
-                <PopupDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
+                <PopupStartDateForm icon={"calendar alternate outline"} color={"teal"} book={book}/>
                 <Button
                   circular
                   icon='file image'

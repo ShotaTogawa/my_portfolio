@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
-// import api from '../../../api';
-// import history from '../../../history';
 import { deleteMemo, fetchMemo } from '../../../actions';
 import { connect } from 'react-redux';
 

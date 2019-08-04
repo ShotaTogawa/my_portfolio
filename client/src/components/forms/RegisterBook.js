@@ -5,7 +5,6 @@ import { Message } from 'semantic-ui-react';
 
 class RegisterBook extends Component {
 
-
     state = {
         title: "",
         genre: "",
@@ -37,19 +36,20 @@ class RegisterBook extends Component {
         return this.state.authorized.includes(filename);
     }
 
-    isFormEmpty = ({title, genre}) => {
+    isFormEmpty = ({title, genre, author, page_nums}) => {
         return(
         !title.length ||
-        !genre.length
+        !genre.length ||
+        !author.length ||
+        !page_nums.length
         );
      }
 
      isFormValid = () => {
         let errors = [];
         let error;
-        const today = new Date();
         if (this.isFormEmpty(this.state)) {
-            error = { message: "Please fill in title and genre Fields"};
+            error = { message: "Please fill in every fields"};
             this.setState({ errors: errors.concat(error) });
             return false;
         }
@@ -66,7 +66,8 @@ class RegisterBook extends Component {
     }
 
 
-    handleSubmit = async() => {
+    handleSubmit = async(event) => {
+        event.preventDefault();
         const {title, genre, author, page_nums } = this.state;
 
         if (this.isFormValid()){

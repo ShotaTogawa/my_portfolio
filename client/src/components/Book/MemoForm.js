@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
-import { createMemo } from '../../actions';
+import { createMemo, fetchMemo } from '../../actions';
 import { connect } from 'react-redux';
 
 
 class MemoForm extends Component {
 
+    componentDidMount() {
+        const book_id = this.props.book._id
+        this.props.fetchMemo(book_id);
+    }
+
     state = {
         memo: ""
     }
-
-    // componentDidMount() {
-    //     const book_id = this.props.book._id
-    //     this.props.fetchMemo(book_id);
-    // }
 
     handleChange = (event) => {
         this.setState({memo: event.target.value})
@@ -37,4 +37,4 @@ class MemoForm extends Component {
     }
 }
 
-export default connect(null, {createMemo})(MemoForm);
+export default connect(null, {createMemo, fetchMemo})(MemoForm);

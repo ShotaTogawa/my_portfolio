@@ -79,7 +79,6 @@ class BookInfo extends Component {
                     </List.Item>
                 </List>
                 <List horizontal>
-                    <List.Item><Link to={`/book_detail/update/${this.props.book._id}`}>Edit</Link></List.Item>
                     <List.Item><Link to={`/book_detail/delete/${this.props.book._id}`}>Delete</Link></List.Item>
                 </List>
             </Item>

@@ -21,4 +21,5 @@
 - BootStrap
 - Nodejs(Express)
 - MongoDB(mangoose)
-- Jest(未完)
+- firebase(auth, storage)
+- Jest

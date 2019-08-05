@@ -36,13 +36,13 @@ const book_reducer = (state={}, action) => {
         case actionTypes.UPDATE_READ_PAGES:
             return {...state, [action.payload.id]: action.payload};
         case actionTypes.UPDATE_BOOK_EVALUATION:
-                return {...state, [action.payload.id]: action.payload};
+            return {...state, [action.payload.id]: action.payload};
         case actionTypes.UPDATE_BOOK_START_DATE:
-                return {...state, [action.payload.id]: action.payload};
+            return {...state, [action.payload.id]: action.payload};
         case actionTypes.UPDATE_BOOK_END_DATE:
-                return {...state, [action.payload.id]: action.payload};
+            return {...state, [action.payload.id]: action.payload};
         case actionTypes.UPDATE_BOOK_IMAGE:
-                return {...state, [action.payload.id]: action.payload};
+            return {...state, [action.payload.id]: action.payload};
         default:
             return state
     }

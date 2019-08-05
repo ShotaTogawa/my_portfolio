@@ -90,7 +90,6 @@ class RegisterBook extends Component {
                     <div className="col-sm align-self-center">
                     <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Book Register</h1>
                     <form onSubmit={this.handleSubmit}>
-                        {/* title */}
                         <div className="form-group">
                             <label htmlFor="title">title</label>
                             <input
@@ -111,7 +110,6 @@ class RegisterBook extends Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        {/* genre */}
                         <div className="form-group">
                             <label htmlFor="genre">Genre</label>
                             <select className="form-control" value={this.state.value} name="genre" onChange={this.handleChange}>
@@ -132,12 +130,6 @@ class RegisterBook extends Component {
                                 <option value="Others">Others</option>
                             </select>
                         </div>
-                        {/* image */}
-                        {/* <div className="form-group">
-                            <label htmlFor="file">Example file input</label>
-                            <input type="file" className="form-control-file" name="file" onChange={this.addFile} />
-                        </div> */}
-                        {/* pages */}
                         <div className="form-group">
                             <label htmlFor="page_nums">The book's number of pages</label>
                             <input

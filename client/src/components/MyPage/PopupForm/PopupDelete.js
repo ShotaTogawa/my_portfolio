@@ -5,10 +5,6 @@ import { connect } from 'react-redux';
 
 
 class PopupDelete extends Component {
-    componentDidMount() {
-        const book_id = this.props.memo.book_id
-        this.props.fetchMemo(book_id);
-    }
 
     handleClick = () => {
         const memo_id = this.props.memo._id
@@ -31,5 +27,5 @@ class PopupDelete extends Component {
 
 
 
-export default connect(null, {deleteMemo, fetchMemo})(PopupDelete);
+export default connect(null, {deleteMemo})(PopupDelete);
 

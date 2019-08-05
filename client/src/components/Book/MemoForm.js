@@ -6,11 +6,6 @@ import { connect } from 'react-redux';
 
 class MemoForm extends Component {
 
-    componentDidMount() {
-        const book_id = this.props.book._id
-        this.props.fetchMemo(book_id);
-    }
-
     state = {
         memo: ""
     }
@@ -37,4 +32,4 @@ class MemoForm extends Component {
     }
 }
 
-export default connect(null, {createMemo, fetchMemo})(MemoForm);
+export default connect(null, {createMemo})(MemoForm);

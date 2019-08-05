@@ -12,13 +12,15 @@ const bookSchema = new mongoose.Schema({
     },
     author: {
         type: String,
+        required: true
     },
     imageUrl: {
         type: String,
         default: "https://firebasestorage.googleapis.com/v0/b/my-portfolio-e7b33.appspot.com/o/books%2Fimages%2Fdefault%2Fimage.png?alt=media&token=76580ae4-2f31-45ac-96bc-bd141697e049"
     },
     page_nums: {
-        type: Number
+        type: Number,
+        required: true
     },
     read_pages: {
         type: Number

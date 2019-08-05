@@ -17,10 +17,6 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Email is invalid')
             }
         }
-    },
-    password: {
-        type: String,
-        trim: true,
     }
 },{
     timestamps: true

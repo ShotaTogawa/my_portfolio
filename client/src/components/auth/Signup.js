@@ -129,7 +129,6 @@ class Signup extends Component {
             .post('/user', {
                 name: name,
                 email: email,
-                password: password
             })
             .then(response => console.log(response))
             .catch(err => console.error(err))

@@ -95,26 +95,6 @@ router.patch('/book/:book_id/evaluation', async(req, res) => {
 
 })
 
-router.patch('/book/:book_id/evaluation', async(req, res) => {
-    const updates = Object.keys(req.body);
-    const allowUpdates = ['evaluation'];
-    const isValidOperation = updates.every(update => allowUpdates.includes(update));
-    const _id = req.params.book_id;
-
-    if (!isValidOperation) {
-        return res.status(400).send({'error': 'Invalid updates'})
-    }
-
-    try {
-        const book = await Book.findById(_id);
-        updates.forEach((update) => book[update]= req.body[update]);
-        await book.save();
-        res.send(book);
-    } catch (err) {
-        res.status(400).send(err);
-    }
-
-})
 
 router.patch('/book/:book_id/startdate', async(req, res) => {
     const updates = Object.keys(req.body);

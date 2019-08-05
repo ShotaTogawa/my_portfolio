@@ -14,16 +14,12 @@ class MemoForm extends Component {
         this.setState({memo: event.target.value})
     }
 
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        if(this.state.memo) {
-            this.props.createMemo(this.props.book._id, {
-                book_id: this.props.book._id,
-                owner: this.props.book.owner,
-                memo: this.state.memo
-            });
-        }
-        this.props.fetchMemo(this.props.book._id);
+    handleSubmit = async () => {
+        this.props.createMemo(this.props.book._id, {
+            book_id: this.props.book._id,
+            owner: this.props.book.owner,
+            memo: this.state.memo
+        });
     }
 
     render() {
@@ -36,4 +32,4 @@ class MemoForm extends Component {
     }
 }
 
-export default connect(null, {createMemo, fetchMemo})(MemoForm);
+export default connect(null, {createMemo})(MemoForm);

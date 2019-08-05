@@ -17,7 +17,6 @@ class Memo extends Component {
                         </Comment.Text>
                         <Comment.Metadata>
                         <div>{moment(memo.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
-                        {/* <Button circular icon='edit outline' color="teal" size="mini"/> */}
                         <PopupDelete icon='delete' color="red" size="mini" memo={memo} />
                         </Comment.Metadata>
                     </Comment.Content>

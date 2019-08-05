@@ -23,7 +23,7 @@ export const clearUser = () => {
 export const createBook = (formValues) => async dispatch => {
     const response = await api.post('/book', formValues);
     dispatch({type: actionTypes.CREATE_BOOK, payload: response.data});
-    history.push(`/book_detail/${response.data._id}/`);
+    history.push('/');
 }
 
 
@@ -44,11 +44,36 @@ export const deleteBook = (id) => async dispatch => {
     history.push('/');
 }
 
-export const updateBook = (id, formValues) => async dispatch => {
-    const response = api.patch(`/book/${id}`, formValues);
-    dispatch({type: actionTypes.UPDATE_BOOK, payload: response.data});
+export const updateReadPages = (id, formValue) => async dispatch => {
+    const response = await api.patch(`/book/${id}/read_pages`, formValue);
+    dispatch({type: actionTypes.UPDATE_READ_PAGES, payload: response.data});
     history.push('/');
 }
+
+export const updateEvaluation = (id, formValue) => async dispatch => {
+    const response = await api.patch(`/book/${id}/evaluation`, formValue);
+    dispatch({type: actionTypes.UPDATE_BOOK_EVALUATION, payload: response.data});
+    history.push('/');
+}
+
+export const updateStartDate = (id, formValue) => async dispatch => {
+    const response = await api.patch(`/book/${id}/startdate`, formValue);
+    dispatch({type: actionTypes.UPDATE_BOOK_START_DATE, payload: response.data});
+    history.push('/');
+}
+
+export const updateEndDate = (id, formValue) => async dispatch => {
+    const response = await api.patch(`/book/${id}/enddate`, formValue);
+    dispatch({type: actionTypes.UPDATE_BOOK_END_DATE, payload: response.data});
+    history.push('/');
+}
+
+export const updateImage = (id, formValue) => async dispatch => {
+    const response = await api.patch(`/book/upload/${id}`, formValue);
+    dispatch({type: actionTypes.UPDATE_BOOK_IMAGE, payload: response.data});
+    history.push(`/book_detail/${id}`);
+}
+
 
 /* User Book Memo */
 

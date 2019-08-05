@@ -3,7 +3,8 @@ import mime from "mime-types";
 import { Modal, Input, Button, Icon } from "semantic-ui-react";
 import uuidv4 from 'uuidv4';
 import firebase from '../../../firebase';
-import api from '../../../api';
+import { updateImage } from '../../../actions';
+import { connect } from 'react-redux';
 
 
 
@@ -15,7 +16,6 @@ class ImageModal extends Component {
     modal: false,
     imageUrl: ''
   };
-  
 
   addFile = event => {
     const file = event.target.files[0];
@@ -39,11 +39,9 @@ class ImageModal extends Component {
                     this.state.uploadTask.snapshot.ref
                     .getDownloadURL()
                     .then(downloadUrl => {
-                        // this.props.uploadImage({id: id}, downloadUrl);
-                        api.patch(`/book/upload/${id}`, {imageUrl: downloadUrl})
+                        this.props.updateImage(id, {imageUrl: downloadUrl});
                     })
                     .catch(err => {
-                        console.error(err);
                         this.setState({
                             errors: this.state.errors.concat(err),
                             uploadTask: null
@@ -103,4 +101,4 @@ class ImageModal extends Component {
 
 
 
-export default ImageModal;
+export default connect(null, {updateImage})(ImageModal);

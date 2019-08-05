@@ -7,7 +7,6 @@ import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import BookForm from './components/forms/BookForm';
 import DeleteBook from './components/Book/DeleteBook';
-import EditBook from './components/Book/EditBook';
 import Profile from './components/User/Profile';
 
 import "semantic-ui-css/semantic.min.css";
@@ -20,7 +19,7 @@ import {
 } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
-import { setUser, clearUser } from './actions';
+import { setUser, clearUser, fetchBooks } from './actions';
 import rootReducer from './reducers';
 import BookDetail from './components/Book/BookDetail';
 import reduxThunk from 'redux-thunk'
@@ -33,6 +32,7 @@ class Root extends React.Component {
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 this.props.setUser(user);
+                this.props.fetchBooks(user.uid);
                 this.props.history.push('/');
             } else {
                 this.props.history.push('/login');
@@ -50,7 +50,6 @@ class Root extends React.Component {
                 <Route path="/user" component={Profile} />
                 <Route path="/book" component={BookForm} />
                 <Route path="/book_detail/:id" exact component={BookDetail} />
-                <Route path="/book_detail/update/:id" component={EditBook} />
                 <Route path="/book_detail/delete/:id" exact component={DeleteBook} />
              </Switch>
         )
@@ -58,7 +57,7 @@ class Root extends React.Component {
 }
 
 const RootWithAuth = withRouter(
-    connect(null, {setUser, clearUser})(Root)
+    connect(null, {setUser, clearUser, fetchBooks})(Root)
 );
 
 ReactDOM.render(

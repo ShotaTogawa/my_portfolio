@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
-import api from '../../../api';
-import history from '../../../history';
+import { connect } from 'react-redux';
+import { updateEvaluation } from '../../../actions';
 
 class PopupEvaluation extends Component {
 
@@ -13,14 +13,11 @@ class PopupEvaluation extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    handleSubmit = async(event) => {
-        event.preventDefault()
+    handleSubmit = async() => {
         const id = this.props.book._id;
         const evaluation = this.state.evaluation;
 
-        api.patch(`/book/${id}/evaluation`, {evaluation})
-        .then(() => history.push('/'))
-        .catch(err => console.log(err))
+        await this.props.updateEvaluation(id, {evaluation})
     }
 
     render() {
@@ -45,5 +42,5 @@ class PopupEvaluation extends Component {
     }
 }
 
-export default PopupEvaluation;
+export default connect(null, {updateEvaluation})(PopupEvaluation);
 

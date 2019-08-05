@@ -67,20 +67,8 @@ class BookInfo extends Component {
                     </List.Item>
                     <List.Item>
                         <List.Content>
-                            Expected Start Date
-                            <List.Header>{this.checkNullForDate(this.props.book.ScheduledStartDate)}</List.Header>
-                        </List.Content>
-                    </List.Item>
-                    <List.Item>
-                        <List.Content>
                             Start Date
                             <List.Header>{this.checkNullForDate(this.props.book.startDate)}</List.Header>
-                        </List.Content>
-                    </List.Item>
-                    <List.Item>
-                        <List.Content>
-                            Expected Finish Date
-                            <List.Header>{this.checkNullForDate(this.props.book.ScheduledEndDate)}</List.Header>
                         </List.Content>
                     </List.Item>
                     <List.Item>
@@ -91,7 +79,6 @@ class BookInfo extends Component {
                     </List.Item>
                 </List>
                 <List horizontal>
-                    <List.Item><Link to={`/book_detail/update/${this.props.book._id}`}>Edit</Link></List.Item>
                     <List.Item><Link to={`/book_detail/delete/${this.props.book._id}`}>Delete</Link></List.Item>
                 </List>
             </Item>

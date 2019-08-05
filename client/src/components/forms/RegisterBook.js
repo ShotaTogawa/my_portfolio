@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar';
 import { connect } from 'react-redux';
 import { createBook } from '../../actions';
 import { Message } from 'semantic-ui-react';
-
 
 class RegisterBook extends Component {
 
@@ -12,8 +10,6 @@ class RegisterBook extends Component {
         genre: "",
         page_nums: "",
         author: '',
-        ScheduledEndDate: "",
-        ScheduledStartDate: "",
         errors: [],
         openCalendar: false,
         owner: this.props.currentUser
@@ -40,35 +36,22 @@ class RegisterBook extends Component {
         return this.state.authorized.includes(filename);
     }
 
-    isFormEmpty = ({title, genre}) => {
+    isFormEmpty = ({title, genre, author, page_nums}) => {
         return(
         !title.length ||
-        !genre.length
+        !genre.length ||
+        !author.length ||
+        !page_nums.length
         );
      }
 
      isFormValid = () => {
         let errors = [];
         let error;
-        const today = new Date();
         if (this.isFormEmpty(this.state)) {
-            error = { message: "Please fill in title and genre Fields"};
+            error = { message: "Please fill in every fields"};
             this.setState({ errors: errors.concat(error) });
             return false;
-        }
-        if (this.state.ScheduledStartDate.length) {
-                if (today <= this.state.ScheduledStartDate ) {
-                error = { message: "Scheduled start date must be greater equal than today"};
-                this.setState({ errors: errors.concat(error)});
-                return false;
-            }
-        }
-        if (this.state.ScheduledEndDate.length){
-            if(this.state.ScheduledStartDate <= this.state.ScheduledEndDate){
-                error = { message: "Scheduled end date must be greater equal than Scheduled start date"};
-                this.setState({ errors: errors.concat(error)});
-                return false;
-            }
         }
         return true;
     }
@@ -85,7 +68,7 @@ class RegisterBook extends Component {
 
     handleSubmit = async(event) => {
         event.preventDefault();
-        const {title, genre, author, page_nums, ScheduledStartDate, ScheduledEndDate} = this.state;
+        const {title, genre, author, page_nums } = this.state;
 
         if (this.isFormValid()){
             await this.props.createBook({
@@ -93,28 +76,12 @@ class RegisterBook extends Component {
                 genre,
                 author,
                 page_nums,
-                ScheduledStartDate,
-                ScheduledEndDate,
                 owner: this.props.currentUser.uid
             })
         }
     }
 
     displayErrors = errors => errors.map((error, i) => <small key={i} className="form-text alert alert-danger" >{error.message}</small>)
-
-
-    openCalendar = () => {
-        this.setState({openCalendar: true})
-    }
-
-    setScheduledStartDate = (ScheduledStartDate) => {
-        this.setState({ScheduledStartDate});
-    }
-
-    setScheduledEndDate = (ScheduledEndDate) => {
-        this.setState({ScheduledEndDate});
-    }
-
 
     render() {
         return (
@@ -123,7 +90,6 @@ class RegisterBook extends Component {
                     <div className="col-sm align-self-center">
                     <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Book Register</h1>
                     <form onSubmit={this.handleSubmit}>
-                        {/* title */}
                         <div className="form-group">
                             <label htmlFor="title">title</label>
                             <input
@@ -144,7 +110,6 @@ class RegisterBook extends Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        {/* genre */}
                         <div className="form-group">
                             <label htmlFor="genre">Genre</label>
                             <select className="form-control" value={this.state.value} name="genre" onChange={this.handleChange}>
@@ -165,12 +130,6 @@ class RegisterBook extends Component {
                                 <option value="Others">Others</option>
                             </select>
                         </div>
-                        {/* image */}
-                        {/* <div className="form-group">
-                            <label htmlFor="file">Example file input</label>
-                            <input type="file" className="form-control-file" name="file" onChange={this.addFile} />
-                        </div> */}
-                        {/* pages */}
                         <div className="form-group">
                             <label htmlFor="page_nums">The book's number of pages</label>
                             <input
@@ -180,34 +139,6 @@ class RegisterBook extends Component {
                                 placeholder="Enter the number of pages of the book"
                                 onChange={this.handleChange}
                             />
-                        </div>
-                        {/* 開始予定日 */}
-                        <div className="form-group">
-                            <p>Expected Reading Start and Finised Date</p>
-                            {this.state.openCalendar ?
-                            <div>
-                                <label>Expected day to start</label>
-                                <Calendar
-                                    onChange={this.setScheduledStartDate}
-                                />
-                            </div>
-                            :
-                            <div>
-                                <button onClick={this.openCalendar} className="btn btn-outline-secondary btn-sm">Open calendar</button>
-                            </div>
-                            }
-                        </div>
-                        {/* 読了予定日 */}
-                        <div className="form-group">
-                            {this.state.openCalendar ?
-                            <div>
-                                <label>Expected day to fishih</label>
-                                <Calendar
-                                    onChange={this.setScheduledEndDate}
-                                />
-                            </div>
-                            : ''
-                            }
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>

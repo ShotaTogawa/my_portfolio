@@ -23,12 +23,6 @@ const bookSchema = new mongoose.Schema({
     read_pages: {
         type: Number
     },
-    ScheduledStartDate: {
-        type: Date,
-    },
-    ScheduledEndDate: {
-        type: Date
-    },
     startDate: {
         type: Date,
     },

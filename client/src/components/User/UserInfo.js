@@ -15,13 +15,11 @@ class UserInfo extends Component {
 
     componentDidMount() {
         const id = this.props.currentUser.uid;
+        this.setState({countGenre: this.countGenre(this.props.books)})
+        this.setState({countStatus: this.countStatus(this.props.books)})
         this.props.fetchBooks(id);
     }
 
-    componentWillMount() {
-        this.setState({countGenre: this.countGenre(this.props.books)})
-        this.setState({countStatus: this.countStatus(this.props.books)})
-    }
 
     countGenre = (books) => {
         const counter = {};

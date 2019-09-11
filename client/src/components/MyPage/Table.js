@@ -21,6 +21,7 @@ class Table extends Component {
 
   renderList(){
     return this.props.books.filter((book) => book.status === "reading" && book.owner === this.props.user)
+      .filter((book, i, self) => (self.findIndex(book2 => book2._id === book._id) === i))
       .map((book, i) =>{
         return (
           <tr key={i} style={{textAlign: "left"}}>

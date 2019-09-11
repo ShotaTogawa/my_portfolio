@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
-import { createMemo, fetchMemo } from '../../actions';
+import { createMemo } from '../../actions';
 import { connect } from 'react-redux';
 
 

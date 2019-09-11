@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Popup } from 'semantic-ui-react';
-import { deleteMemo, fetchMemo } from '../../../actions';
+import { deleteMemo } from '../../../actions';
 import { connect } from 'react-redux';
 
 

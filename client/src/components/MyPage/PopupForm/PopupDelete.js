@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 class PopupDelete extends Component {
 
     handleClick = () => {
-        const memo_id = this.props.memo._id
+        const memo_id = this.props.memo;
         const book_id = this.props.memo.book_id
         this.props.deleteMemo(book_id, memo_id);
     }

@@ -17,7 +17,7 @@ class TableBefore extends Component {
   closeModal = () => this.setState({ modal: false });
 
   renderList(){
-    return this.props.books.filter((book) => book.status === "beforeReading")
+    return this.props.books.filter((book) => book.status === "beforeReading" && book.owner === this.props.user)
       .map((book, i) =>{
         return (
             <tr key={i} >

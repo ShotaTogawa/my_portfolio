@@ -20,7 +20,7 @@ class Table extends Component {
   closeModal = () => this.setState({ modal: false });
 
   renderList(){
-    return this.props.books.filter((book) => book.status === "reading")
+    return this.props.books.filter((book) => book.status === "reading" && book.owner === this.props.user)
       .map((book, i) =>{
         return (
           <tr key={i} style={{textAlign: "left"}}>

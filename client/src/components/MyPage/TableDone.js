@@ -18,7 +18,7 @@ class TableDone extends Component {
 
 
   renderList(){
-    return this.props.books.filter((book) => book.status === "read")
+    return this.props.books.filter((book) => book.status === "read" && book.owner === this.props.user)
       .map((book, i) =>{
         return(
           <tr key={i}>

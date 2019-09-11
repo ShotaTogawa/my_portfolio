@@ -30,7 +30,6 @@ export const createBook = (formValues) => async dispatch => {
 export const fetchBook = (id) => async dispatch => {
     const response = await api.get(`/book/${id}`);
     dispatch({type: actionTypes.FETCH_BOOK, payload: response.data});
-    history.push(`/book_detail/${id}`);
 }
 
 export const fetchBooks = (id) => async dispatch => {
@@ -71,7 +70,7 @@ export const updateEndDate = (id, formValue) => async dispatch => {
 export const updateImage = (id, formValue) => async dispatch => {
     const response = await api.patch(`/book/upload/${id}`, formValue);
     dispatch({type: actionTypes.UPDATE_BOOK_IMAGE, payload: response.data});
-    history.push(`/book_detail/${id}`);
+    history.push('/');
 }
 
 
@@ -80,13 +79,11 @@ export const updateImage = (id, formValue) => async dispatch => {
 export const fetchMemo = (id) => async dispatch => {
     const response = await api.get(`/book/${id}/memo`);
     dispatch({type: actionTypes.FETCH_BOOK_MEMOS, payload: response.data});
-    history.push('/')
 }
 
 export const createMemo = (book_id, memo) => async dispatch => {
     const response = await api.post(`book/${book_id}/memo`, memo);
     dispatch({type: actionTypes.CREATE_MEMO, payload: response.data});
-    history.push(`/book_detail/${book_id}/`);
 }
 
 export const deleteMemo = (book_id, memo_id) => async dispatch => {
